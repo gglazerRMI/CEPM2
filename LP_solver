@@ -1,0 +1,139 @@
+import numpy as np
+from scipy import optimize
+import scipy as sp
+
+"""Notation: # used for comments to keep in code, ## used to indicate notes to address, triple quotes used
+for headings and longer descriptions."""
+
+
+"""Functions"""
+
+# norm_max takes an array and returns the array with all elements normalized by the element closest to +inf in the array
+# norm_max returns the original matrix if the largest element is 0
+# norm_max returns the original matrix normalized by element closest to +inf (meaning we lose the negatives)
+def norm_max(M):
+    if np.amax(M) == 0:
+        return M
+    else:
+        return M/np.amax(M)
+
+"""Inputs: Constants, Constraints, and Requirements"""
+
+# Index key for x
+idx_re_pv = 0
+idx_re_pvt = 1
+idx_re_w = 2
+idx_es_4h = 3
+idx_es_6h = 4
+idx_ee_ind = 5
+idx_ee_res1 = 6
+idx_ee_res2 = 7
+idx_ee_res3 = 8
+idx_ee_res4 = 9
+idx_ee_res5 = 10
+idx_ee_com1 = 11
+idx_ee_com2 = 12
+idx_ee_com3 = 13
+idx_ee_com4 = 14
+idx_ee_com5 = 15
+idx_ee_com6 = 16
+idx_dr_ind = 17
+idx_dr_res1 = 18
+idx_dr_res2 = 19
+idx_dr_res3 = 20
+idx_dr_res4 = 21
+idx_dr_res5 = 22
+idx_dr_com1 = 23
+idx_dr_com2 = 24
+idx_dr_com3 = 25
+idx_dr_com4 = 26
+idx_dr_com5 = 27
+idx_dr_com6 = 28
+
+# Indexing for months
+Jan = 0
+Feb = Jan + 31*24
+Mar = Feb + 28*24
+Apr = Mar + 31*24
+May = Apr + 30*24
+Jun = May + 31*24
+Jul = Jun + 30*24
+Aug = Jul + 31*24
+Sep = Aug + 31*24
+Oct = Sep + 30*24
+Nov = Oct + 31*24
+Dec = Nov + 30*24
+
+# Data
+
+
+# Bounds
+
+
+
+"""Build Arrays for Ax≤b"""
+# Upper bounds: maximum amount of clean energy resource
+x1_bnds = np.ones((29, 1)) ## this needs to be changed to reflect the max capacity for 29 decision variables, as b_max
+
+# First constraint: limit total energy efficiency (EE) at sector level (A_ee, b_ee)
+EU = np.ones((8760, 12)) ## Hourly capacity factors for end uses, import from Reinventing Fire
+EU = norm_max(EU)   # normalize all elements of EU to the maximum value of EU
+eue = np.transpose(EU).dot(np.ones((8760, 1)))   # column sums of EU' that give annual E/MW saved for 12 end uses
+
+# Build A_ee
+A_ee = np.zeros((3, 29))
+A_ee[0, idx_ee_ind] = eue[0].T
+A_ee[1, idx_ee_res1:idx_ee_res5+1] = eue[1:6].T
+A_ee[2, idx_ee_com1:idx_ee_com6+1] = eue[6:].T
+
+# Build b_ee
+b_ee = np.ones((3, 1))
+
+# Second Constraint: Limit total demand response (DR) at sector level (A_dr, b_dr)
+A_dr = np.zeros((2, 29))
+A_dr[0, idx_dr_ind:idx_dr_ind+1] = np.ones((1, idx_dr_ind-idx_dr_ind+1))
+A_dr[0, idx_dr_com1:idx_dr_com6+1] = np.ones((1, idx_dr_com6-idx_dr_com1+1))
+A_dr[1, idx_dr_res1:idx_dr_res5+1] = np.ones((1, idx_dr_res5-idx_dr_res1+1))
+
+# Build b_dr
+b_dr = np.ones((2, 1))
+
+# Third Constraint: Monthly energy requirement for CEP
+L = np.zeros((8760, 12))
+L[Jan:Feb, int(Jan/8760)] = np.ones((1, Feb-Jan))
+L[Feb:Mar, int(Feb/8760)] = np.ones((1, Mar-Feb))
+L[Mar:Apr, int(Mar/8760)] = np.ones((1, Apr-Mar))
+L[Apr:May, int(Apr/8760)] = np.ones((1, May-Apr))
+L[May:Jun, int(May/8760)] = np.ones((1, Jun-May))
+L[Jun:Jul, int(Jun/8760)] = np.ones((1, Jul-Jun))
+L[Jul:Aug, int(Jul/8760)] = np.ones((1, Aug-Jul))
+L[Aug:Sep, int(Aug/8760)] = np.ones((1, Sep-Aug))
+L[Sep:Oct, int(Sep/8760)] = np.ones((1, Oct-Sep))
+L[Oct:Nov, int(Oct/8760)] = np.ones((1, Nov-Oct))
+L[Nov:Dec, int(Nov/8760)] = np.ones((1, Dec-Nov))
+L[Dec:, int(Dec/8760)] = np.ones((1, 8760-Dec))
+
+print(L.size)
+
+
+"""Minimize z = c'x, subject to Ax≤b"""
+# Output of this function is x, where each element represents the MW for each resource that should
+# be built for a given year
+
+## need to rewrite this so that A, b are appended from other A's and b's
+# r =
+# c = np.ones((29,1))   # vector of 29 objective coefficients giving cost/MW
+# A = np.ones((r,29))   # array [rx29], where r=len(b), giving coefficients for system requirements
+# b = np.ones((r,1))    # vector of r coefficients for clean energy constraints
+# x0_bnds = (None, None)
+# x1_bnds = (-3,None)
+# res = optimize.linprog(c,A,b, bounds=(x0_bnds,x1_bnds))
+# print(res)
+
+# print(A_ub,b_ub,A_eq,b_eq,c)
+
+#res = optimize.linprog(c,A_ub=None,b_ub=None,A_eq=None,b_eq=None,bounds=\
+# None,method='simplex',callback=None,options={'maxiter':1000,'disp':False,'tol':1e-12,'bland':False})
+
+
+print('works')

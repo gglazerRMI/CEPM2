@@ -1,4 +1,5 @@
 import numpy as np
+import cvxpy as cvx
 from scipy import optimize
 import scipy as sp
 
@@ -100,40 +101,33 @@ b_dr = np.ones((2, 1))
 
 # Third Constraint: Monthly energy requirement for CEP
 L = np.zeros((8760, 12))
-L[Jan:Feb, int(Jan/8760)] = np.ones((1, Feb-Jan))
-L[Feb:Mar, int(Feb/8760)] = np.ones((1, Mar-Feb))
-L[Mar:Apr, int(Mar/8760)] = np.ones((1, Apr-Mar))
-L[Apr:May, int(Apr/8760)] = np.ones((1, May-Apr))
-L[May:Jun, int(May/8760)] = np.ones((1, Jun-May))
-L[Jun:Jul, int(Jun/8760)] = np.ones((1, Jul-Jun))
-L[Jul:Aug, int(Jul/8760)] = np.ones((1, Aug-Jul))
-L[Aug:Sep, int(Aug/8760)] = np.ones((1, Sep-Aug))
-L[Sep:Oct, int(Sep/8760)] = np.ones((1, Oct-Sep))
-L[Oct:Nov, int(Oct/8760)] = np.ones((1, Nov-Oct))
-L[Nov:Dec, int(Nov/8760)] = np.ones((1, Dec-Nov))
-L[Dec:, int(Dec/8760)] = np.ones((1, 8760-Dec))
+months = [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+for i in range(len(months)):
+    if i == 11:
+        L[months[i]:, i] = np.ones((1, len(L)-months[i]))
+    else:
+        L[months[i]:months[i+1], i] = np.ones((1, months[i+1]-months[i]))
 
-print(L.size)
+
+
 
 
 """Minimize z = c'x, subject to Ax≤b"""
-# Output of this function is x, where each element represents the MW for each resource that should
-# be built for a given year
 
 ## need to rewrite this so that A, b are appended from other A's and b's
-# r =
-# c = np.ones((29,1))   # vector of 29 objective coefficients giving cost/MW
-# A = np.ones((r,29))   # array [rx29], where r=len(b), giving coefficients for system requirements
-# b = np.ones((r,1))    # vector of r coefficients for clean energy constraints
-# x0_bnds = (None, None)
-# x1_bnds = (-3,None)
-# res = optimize.linprog(c,A,b, bounds=(x0_bnds,x1_bnds))
-# print(res)
+x = cvx.Variable(29)  # vector of 29 decision variables
+c = np.ones((29,1))   # vector of 29 objective coefficients giving cost/MW
+A = np.ones((r,29))   # array [rx29], where r=len(b), giving coefficients for system requirements
+b = np.ones((r,1))    # vector of r coefficients for clean energy constraints
+x0_bnds = (None, None)
+x1_bnds = (-3,None)
 
-# print(A_ub,b_ub,A_eq,b_eq,c)
+# Output of this function is x, where each element represents the MW for each resource that should
+# be built for a given year
+objective = cvx.Minimize(c.dot(x))
 
-#res = optimize.linprog(c,A_ub=None,b_ub=None,A_eq=None,b_eq=None,bounds=\
-# None,method='simplex',callback=None,options={'maxiter':1000,'disp':False,'tol':1e-12,'bland':False})
+
+
 
 
 print('works')

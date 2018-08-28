@@ -27,7 +27,7 @@ class SetupData(object):
             os.makedirs('data/tmp')
         self.data_path = os.path.abspath('data')
         self.acquire_eia923()
-        # self.eia923_forecast = self.setup_eia923_forecast()
+        self.setup_923_monthly()
         # self.ferc_gross_load = self.setup_ferc_gross_load()
 
     def acquire_eia923(self):
@@ -58,40 +58,46 @@ class SetupData(object):
         # this code loads EIA 923 monthly energy generation and will eventually calculate other things too
         print('setting up EIA 923 dataframe ' + str(datetime.datetime.now().time()))
 
-        monthly_energy = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
-                                       sheet_name=0, header=5, usecols="A,D:G,M:N,P,CB:CM,CR")
-        # temp_demand_forecast = temp_demand_forecast.iloc[:, 0:10]
-        # temp_demand_forecast['forecast'] = np.nan
-        # for i in list(temp_demand_forecast.index):
-        #     w = temp_demand_forecast.loc[i, 'winter_forecast']
-        #     s = temp_demand_forecast.loc[i, 'summer_forecast']
-        #     if w > s:
-        #         d = w
-        #     else:
-        #         d = s
-        #     temp_demand_forecast.set_value(i, 'forecast', d)
-        # temp_demand_forecast = temp_demand_forecast.loc[temp_demand_forecast['report_yr'] == 2015]
-        # temp_demand_forecast = temp_demand_forecast.set_index(['respondent_id',
-        #                                                        'plan_year'])
-        # temp_demand_forecast = temp_demand_forecast.drop(['report_yr', 'report_prd',
-        #                                 'spplmnt_num', 'row_num',
-        #                                 'summer_forecast', 'winter_forecast',
-        #                                 'net_energy_forecast', 'plan_year_f'], axis=1)
-        # demand_forecast = temp_demand_forecast.unstack(level=[1])
-        # demand_forecast.columns = demand_forecast.columns.droplevel(0)
-        # del temp_demand_forecast
-        # demand_forecast['load_growth'] = np.nan
-        # for i in list(demand_forecast.index):
-        #     first = demand_forecast.get_value(i, 2016)
-        #     last = demand_forecast.get_value(i, 2025)
-        #     try:
-        #         growth = calc_cagr(first, last, 9)
-        #         demand_forecast.set_value(i, 'load_growth', growth)
-        #     except ZeroDivisionError:
-        #         print('Error calculating demand growth for ', i, ' because initial value is zero')
-
+        monthly_energy_full = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
+                                       sheet_name=0, header=5, usecols="A:B,D:G,I,K:N,P,CB:CM,CR:CS")
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
-        print(monthly_energy.loc[:1, :])
+        monthly_energy = pd.DataFrame(columns=monthly_energy_full.columns)
+        new_counter = -1
+        # print(len(df))
+        for i in range(len(monthly_energy_full)):
+            if monthly_energy_full.iloc[i]['Plant Id'] not in monthly_energy['Plant Id'].values:
+                monthly_energy = monthly_energy.append(monthly_energy_full.loc[i, :])
+                new_counter += 1
+            else:
+                # print('New--should be current plant ID ')
+                # print(monthly_energy.iloc[new_counter, monthly_energy.columns.get_loc('Netgen\nJanuary')])
+                # print('Original -- should be the 2nd+ entry with given plant ID ')
+                # print(monthly_energy_full.iloc[i]['Netgen\nJanuary'])
+                # monthly_energy.iloc[new_counter, monthly_energy.columns.get_loc('Netgen\nJanuary')] += \
+                #     float(monthly_energy_full.iloc[i]['Netgen\nJanuary'])
+                monthly_energy.iloc[new_counter, 12:23] += monthly_energy_full.iloc[i, 12:23]
+
+
+
+
+        #-----------------------------------------
+        # i = 0
+        # for plant in monthly_energy_full['Plant Id']:
+        #     if plant not in monthly_energy['Plant Id']:
+        #         new_row = monthly_energy_full[plant]
+        #         monthly_energy.loc[i] = new_row
+        #         i += 1
+        #     else:
+        #         monthly_energy[plant, 'Netgen\nJanuary'] += monthly_energy_full[plant, 'Netgen\nJanuary']
+        #
+        # # for plant in monthly_energy_full['Plant Id']:
+        # #     monthly_energy(plant, 'Plant Id') = monthly_energy_full(plant, 'Plant Id')
+        # #     monthly_energy(plant, 'Netgen\nJanuary') += monthly_energy_full.loc[plants[plant], 'Netgen\nJanuary']
+        print(monthly_energy_full.loc[:10, :])
+        print(monthly_energy.loc[:3, :])
+        # # print('Testing: what does monthly_energy_full[Plant Id] give? ' + monthly_energy_full['Plant Id'])
+        # # remove columns for prime mover and fuel type (below)
+        # monthly_energy = monthly_energy.drop(columns=['Reported\nPrime Mover', 'AER\nFuel Type Code'])
         return monthly_energy
     #
     # def setup_ferc_gross_load(self):

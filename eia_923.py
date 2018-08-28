@@ -62,11 +62,30 @@ class SetupData(object):
         monthly_energy_full = monthly_energy_full.replace(to_replace='.', value=0)
         # test_df = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
         #                                sheet_name=0, header=5, usecols="A,CB:CM,CR")
+
+        # monthly_energy_full['Plant Code'] = pd.Series(np.ones(len(monthly_energy_full['Plant Id'])),
+        #                                               index=monthly_energy_full.index)
         monthly_energy = pd.DataFrame(columns=monthly_energy_full.columns)
+        monthly_energy['Plant Code'] = 'NaN'
         new_counter = -1
         for i in range(len(monthly_energy_full)):
             if monthly_energy_full.iloc[i]['Plant Id'] not in monthly_energy['Plant Id'].values:
                 monthly_energy = monthly_energy.append(monthly_energy_full.loc[i, :])
+                if monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'COL' or 'WOC':
+                    monthly_energy.loc[i, ['Plant Code']] = 'CoalST'
+                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'NG':
+                    if monthly_energy_full.loc[i, ['Reported\nPrime Mover']].item() == 'CA' or 'CS' or 'CT':
+                        monthly_energy.loc[i, ['Plant Code']] = 'NGCC'
+                    else:
+                        monthly_energy.loc[i, ['Plant Code']] = 'NGCT'
+                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'SUN':
+                        monthly_energy.loc[i, ['Plant Code']] = 'Solar'
+                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'WND':
+                        monthly_energy.loc[i, ['Plant Code']] = 'Wind'
+                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'NUC':
+                    monthly_energy.loc[i, ['Plant Code']] = 'Nuke'
+                else:
+                    monthly_energy.loc[i, ['Plant Code']] = 'Other'
                 new_counter += 1
             else:
                 monthly_energy.iloc[new_counter, 12:24] += monthly_energy_full.iloc[i, 12:24]
@@ -77,7 +96,7 @@ class SetupData(object):
         # print(test_df.loc[:3, :])
 
         print(monthly_energy_full.loc[:10, :])
-        print(monthly_energy.loc[:3, :])
+        print(monthly_energy.loc[:10, :])
 
         # # remove columns for prime mover and fuel type (below)
         # monthly_energy = monthly_energy.drop(columns=['Reported\nPrime Mover', 'AER\nFuel Type Code'])

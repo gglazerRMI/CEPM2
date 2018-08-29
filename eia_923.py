@@ -54,41 +54,56 @@ class SetupData(object):
             shutil.rmtree(self.data_path + '/tmp/EIA923')
 
     def setup_923_monthly(self):
-        # this code loads EIA 923 monthly energy generation and will eventually calculate other things too
-        print('setting up EIA 923 dataframe ' + str(datetime.datetime.now().time()))
+        """This code loads EIA 923 monthly energy generation and assigns each plant type to one of:
+        SUN (solar PV and thermal), COL (coal and waste coal), NGCC (natural gas combined cycle),
+        NGCT (natural gas combustion turbine, NUC (nuclear), WND (wind), FF (other fossil fuel), or
+        ALT (other alternative fuel). The assignment is stored in the column 'Plant Type'."""
 
+        print('setting up EIA 923 dataframe ' + str(datetime.datetime.now().time()))
+        # import dataframe from excel file
         monthly_energy_full = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
                                        sheet_name=0, header=5, usecols="A:B,D:G,I,K:N,P,CB:CM,CR:CS")
         monthly_energy_full = monthly_energy_full.replace(to_replace='.', value=0)
+        # replace AER codes for fossil fuels
+        monthly_energy_full['AER\nFuel Type Code'].replace(['DFO', 'OOG', 'PC', 'RFO', 'WOO'], ['FF', 'FF', 'FF', 'FF',
+                                                                                                'FF'], inplace=True)
+        # replace AER codes for alternative fuels
+        monthly_energy_full['AER\nFuel Type Code'].replace(['GEO', 'HPS', 'HYC', 'MLG', 'ORW', 'OTH', 'WWW'],
+                                                ['ALT', 'ALT', 'ALT', 'ALT', 'ALT', 'ALT', 'ALT'], inplace=True)
+        # relabel waste coal as coal
+        monthly_energy_full['AER\nFuel Type Code'].replace(['WOC'], ['COL'], inplace=True)
+        # change all natural gas listings to NGCT
+        monthly_energy_full.loc[(monthly_energy_full['AER\nFuel Type Code'] == 'NG'),
+                                'AER\nFuel Type Code'] = 'NGCT'
+        # replace 'CA, CS, CT' prime movers as 'CC' (combined cycle)
+        monthly_energy_full['Reported\nPrime Mover'].replace(['CA', 'CS', 'CT'], ['CC', 'CC', 'CC'], inplace=True)
+        # rename CC natural gas listings as NGCC
+        monthly_energy_full.loc[(monthly_energy_full['AER\nFuel Type Code'] == 'NGCT') &
+                                (monthly_energy_full['Reported\nPrime Mover'] == 'CC'), 'AER\nFuel Type Code'] = 'NGCC'
+
+        monthly_energy_full.rename(columns={'AER\nFuel Type Code': 'Plant Type'}, inplace=True)
+
         # test_df = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
         #                                sheet_name=0, header=5, usecols="A,CB:CM,CR")
 
         # monthly_energy_full['Plant Code'] = pd.Series(np.ones(len(monthly_energy_full['Plant Id'])),
         #                                               index=monthly_energy_full.index)
-        monthly_energy = pd.DataFrame(columns=monthly_energy_full.columns)
-        monthly_energy['Plant Code'] = 'NaN'
-        new_counter = -1
-        for i in range(len(monthly_energy_full)):
-            if monthly_energy_full.iloc[i]['Plant Id'] not in monthly_energy['Plant Id'].values:
-                monthly_energy = monthly_energy.append(monthly_energy_full.loc[i, :])
-                if monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'COL' or 'WOC':
-                    monthly_energy.loc[i, ['Plant Code']] = 'CoalST'
-                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'NG':
-                    if monthly_energy_full.loc[i, ['Reported\nPrime Mover']].item() == 'CA' or 'CS' or 'CT':
-                        monthly_energy.loc[i, ['Plant Code']] = 'NGCC'
-                    else:
-                        monthly_energy.loc[i, ['Plant Code']] = 'NGCT'
-                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'SUN':
-                        monthly_energy.loc[i, ['Plant Code']] = 'Solar'
-                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'WND':
-                        monthly_energy.loc[i, ['Plant Code']] = 'Wind'
-                elif monthly_energy_full.loc[i, ['AER\nFuel Type Code']].item() == 'NUC':
-                    monthly_energy.loc[i, ['Plant Code']] = 'Nuke'
-                else:
-                    monthly_energy.loc[i, ['Plant Code']] = 'Other'
-                new_counter += 1
-            else:
-                monthly_energy.iloc[new_counter, 12:24] += monthly_energy_full.iloc[i, 12:24]
+        # monthly_energy = monthly_energy_full.groupby(by='Plant Id')['Netgen\nJanuary', 'Netgen\nFebruary',
+        #                                                             'Netgen\nMarch', 'Netgen\nApril', 'Netgen\nMay',
+        #                                                             'Netgen\nJune', 'Netgen\nJuly', 'Netgen\nAugust',
+        #                                                             'Netgen\nSeptember', 'Netgen\nOctober',
+        #                                                             'Netgen\nNovember', 'Netgen\nDecember',
+        #                                                             'Net Generation\n(Megawatthours)'].sum()
+
+        # monthly_energy = pd.DataFrame(columns=monthly_energy_full.columns)
+        # monthly_energy['Plant Code'] = 'NaN'
+        # new_counter = -1
+        # for i in range(len(monthly_energy_full)):
+        #     if monthly_energy_full.iloc[i]['Plant Id'] not in monthly_energy['Plant Id'].values:
+        #         monthly_energy = monthly_energy.append(monthly_energy_full.loc[i, :])
+        #         new_counter += 1
+        #     else:
+        #         monthly_energy.iloc[new_counter, 12:24] += monthly_energy_full.iloc[i, 12:24]
 
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
 
@@ -96,8 +111,8 @@ class SetupData(object):
         # print(test_df.loc[:3, :])
 
         print(monthly_energy_full.loc[:10, :])
-        print(monthly_energy.loc[:10, :])
-
+        # print(monthly_energy.loc[:10])
+        # print(monthly_energy_full['Plant Id'].value_counts())
         # # remove columns for prime mover and fuel type (below)
         # monthly_energy = monthly_energy.drop(columns=['Reported\nPrime Mover', 'AER\nFuel Type Code'])
-        return monthly_energy
+        return monthly_energy_full

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd5c5965-424b-4df4-a2f9-570af42adbe4" name="Default Changelist" comment="">
+    <list default="true" id="dd5c5965-424b-4df4-a2f9-570af42adbe4" name="Default Changelist" comment="Attempt at labeling plants by their proper type--note that this labels a plant as whichever of its unit is listed first in EIA 923, it also does not work right now :(">
+      <change afterPath="$PROJECT_DIR$/eia_860.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CEPy_scratch.py" beforeDir="false" afterPath="$PROJECT_DIR$/CEPy_scratch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eia_923.py" beforeDir="false" afterPath="$PROJECT_DIR$/eia_923.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -10,6 +12,25 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockManager">
+    <window id="4">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_calculator.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="30">
+                    <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1928082799">
@@ -24,41 +45,41 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="LP_solver" value="2" />
-          <entry key="py" value="18" />
+          <entry key="py" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="15" />
-          <entry key="Scratch" value="5" />
+          <entry key="Python" value="17" />
+          <entry key="Scratch" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="157" />
-          <entry key="Python" value="8277" />
-          <entry key="Scratch" value="5294" />
+          <entry key="PLAIN_TEXT" value="378" />
+          <entry key="Python" value="10307" />
+          <entry key="Scratch" value="5839" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="LP_solver" value="4893" />
           <entry key="dummy" value="4" />
-          <entry key="py" value="8678" />
-          <entry key="txt" value="153" />
+          <entry key="py" value="11253" />
+          <entry key="txt" value="374" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.65753424">
+    <splitter split-orientation="horizontal" split-proportion="0.82266665">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/eia_923.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="297">
-                  <caret line="81" column="58" lean-forward="true" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
+                <state relative-caret-position="264">
+                  <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
                   </folding>
@@ -67,12 +88,13 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_data.py">
+            <entry file="file://$PROJECT_DIR$/eia_860.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-644">
-                  <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+                <state relative-caret-position="240">
+                  <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
+                    <marker date="1535562149347" expanded="true" signature="341:346" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -81,7 +103,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/CEPy.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3495">
+                <state relative-caret-position="3165">
                   <caret line="233" column="32" selection-start-line="233" selection-start-column="32" selection-end-line="233" selection-end-column="32" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
@@ -93,10 +115,22 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/CEPy_scratch.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
-                  <caret line="5" selection-start-line="5" selection-end-line="5" />
+                <state relative-caret-position="45">
+                  <caret line="3" selection-start-line="3" selection-end-line="3" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_data.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="566">
+                  <caret line="75" selection-start-line="75" selection-end-line="75" />
+                  <folding>
+                    <element signature="e#0#14#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -109,20 +143,11 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_data.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="321">
-                  <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+                <state relative-caret-position="-37">
+                  <caret line="40" column="70" lean-forward="true" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dataframe_practice.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="45">
-                  <caret line="3" column="73" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
                 </state>
               </provider>
             </entry>
@@ -154,20 +179,22 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_linprog.py" />
         <option value="$PROJECT_DIR$/LP_solver" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
         <option value="$USER_HOME$/Downloads/CEPy.py" />
         <option value="$PROJECT_DIR$/CEPy.py" />
-        <option value="$PROJECT_DIR$/CEPy_scratch.py" />
         <option value="$PROJECT_DIR$/dataframe_practice.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_calculator.py" />
+        <option value="$PROJECT_DIR$/eia_860.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_data.py" />
+        <option value="$PROJECT_DIR$/CEPy_scratch.py" />
         <option value="$PROJECT_DIR$/eia_923.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="24" />
-    <option name="y" value="23" />
-    <option name="width" value="1356" />
+    <option name="x" value="-35" />
+    <option name="y" value="93" />
+    <option name="width" value="1475" />
     <option name="height" value="757" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -426,6 +453,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="scratch_calculator" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CEP1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_calculator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="scratch_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CEP1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -447,42 +495,21 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="scratch_linprog" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CEP1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_linprog.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.LP_solver" />
       <item itemvalue="Python.scratch" />
-      <item itemvalue="Python.scratch_linprog" />
       <item itemvalue="Python.scratch_data" />
       <item itemvalue="Python.CEPy_scratch" />
       <item itemvalue="Python.dataframe_practice" />
+      <item itemvalue="Python.scratch_calculator" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.CEPy_scratch" />
         <item itemvalue="Python.scratch_data" />
+        <item itemvalue="Python.scratch_calculator" />
         <item itemvalue="Python.dataframe_practice" />
         <item itemvalue="Python.LP_solver" />
-        <item itemvalue="Python.scratch_linprog" />
       </list>
     </recent_temporary>
   </component>
@@ -518,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535475997946</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Attempt at labeling plants by their proper type--note that this labels a plant as whichever of its unit is listed first in EIA 923, it also does not work right now :(">
+      <created>1535498943311</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1535498943314</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -531,15 +565,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="24" y="23" width="1356" height="757" extended-state="0" />
+    <frame x="-35" y="93" width="1475" height="757" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23445693" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21526822" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4988764" visible="true" weight="0.33533835" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4988764" visible="true" weight="0.26466164" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -560,7 +594,8 @@
     <MESSAGE value="Commit message for vcs" />
     <MESSAGE value="CEPy for FERC 714, eia_923 for EIA 923" />
     <MESSAGE value="Cleaning up eia_923 for EIA 923, using 'for loop' to aggregate monthly energy totals" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaning up eia_923 for EIA 923, using 'for loop' to aggregate monthly energy totals" />
+    <MESSAGE value="Attempt at labeling plants by their proper type--note that this labels a plant as whichever of its unit is listed first in EIA 923, it also does not work right now :(" />
+    <option name="LAST_COMMIT_MESSAGE" value="Attempt at labeling plants by their proper type--note that this labels a plant as whichever of its unit is listed first in EIA 923, it also does not work right now :(" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -642,23 +677,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CEPy_scratch.py">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CEPy.py">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_calculator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3495">
-          <caret line="233" column="32" selection-start-line="233" selection-start-column="32" selection-end-line="233" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -669,20 +698,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_data.py">
+    <entry file="file://$PROJECT_DIR$/eia_860.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-644">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="240">
+          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <marker date="1535562149347" expanded="true" signature="341:346" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CEPy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3165">
+          <caret line="233" column="32" selection-start-line="233" selection-start-column="32" selection-end-line="233" selection-end-column="32" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CEPy_scratch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/eia_923.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="81" column="58" lean-forward="true" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
+        <state relative-caret-position="264">
+          <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

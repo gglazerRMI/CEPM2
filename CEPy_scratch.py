@@ -1,8 +1,9 @@
 from CEPy import *
-from eia_923 import *
+from power_plants import *
 # from eia_860 import *
 pd.set_option('display.max_rows', 200)
 pd.set_option('display.max_columns', 30)
-test = SetupData()
+SetupData()
+
 
 # test.acquire_ferc()

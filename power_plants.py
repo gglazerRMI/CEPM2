@@ -141,6 +141,9 @@ class SetupData(object):
 
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
 
+        f = open('eia923txt.txt', 'w')
+        f.write(df923test.loc[:30, :])
+
         # print(df923.loc[:10, :])
         # print(df923test.loc[:30, :])
 
@@ -189,7 +192,8 @@ class SetupData(object):
         # group to match df923
         df860test = df860gen.groupby(['Plant Id', 'Plant Type']).sum()
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
-
+        f = open('eia860txt.txt', 'w')
+        f.write(df860test.loc[:30, :])
         # print(df860gen.loc[:30, :])
         # print(df860test.loc[:30, :])
 
@@ -199,6 +203,8 @@ class SetupData(object):
         """This method combines df923 and df860gen into one cumulative power plant dataframe."""
         print('setting up Power Plant dataframe ' + str(datetime.datetime.now().time()))
         dfpp = pd.merge(df923test, df860test, how='outer', on=['Plant Id', 'Plant Type'])
+
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
-        print(dfpp)
+        f = open('powerplants_txt.txt', 'w')
+        f.write(dfpp)
         return dfpp

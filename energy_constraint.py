@@ -7,11 +7,11 @@ import datetime
 import numpy as np
 import pandas as pd
 
+
 def unzip(zip_file_path, directory_to_extract_to):
     # function to unzip a file
     with zipfile.ZipFile(zip_file_path, "r") as z:
         z.extractall(directory_to_extract_to)
-
 
 
 class SetupData(object):
@@ -19,7 +19,7 @@ class SetupData(object):
     Class for setting up all the data, this is a less than perfect use for a class
     thinking we sort of use it like a function that can share certain parts of itself
     '''
-    def __init__(self):
+    def __init__(self, plant_id, plant_type, nameplate):
         # Create data and tmp directories
         if not os.path.exists('data'):
             os.makedirs('data')
@@ -30,7 +30,8 @@ class SetupData(object):
         self.acquire_eia860()
         df923 = self.setup_eia923()
         df860 = self.setup_eia860()
-        self.setup_dfpp(df923, df860)
+        dfpp = self.setup_dfpp(df923, df860)
+        self.calculate_monthly_energy(dfpp, plant_id, plant_type, nameplate)
 
     def acquire_eia923(self):
         # download EIA 923 if relevant files are not in 'data' directory
@@ -86,6 +87,9 @@ class SetupData(object):
         NGCT (natural gas combustion turbine, NUC (nuclear), WND (wind), FF (other fossil fuel), or
         ALT (other alternative fuel). The assignment is stored in the column 'Plant Type'."""
 
+        # -------------Things to fix---------- #
+        # We lose cols Combined Heat And\nPower Plant, Plant Name, Operator Name, Plant State, NERC Region, Sector Name
+        # Operator\Id, NAICS\nCode, EIA Sector\nNumber, YEAR are all being summed
         print('setting up EIA 923 dataframe ' + str(datetime.datetime.now().time()))
         # import dataframe from excel file
         df923 = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
@@ -114,6 +118,12 @@ class SetupData(object):
         df923.loc[(df923['AER\nFuel Type Code'] == 'NG'),
                   'AER\nFuel Type Code'] = 'NGCT'
         df923.rename(columns={'AER\nFuel Type Code': 'Plant Type'}, inplace=True)
+        df923.rename(columns={'Netgen\nJanuary': 'Jan', 'Netgen\nFebruary': 'Feb', 'Netgen\nMarch':'Mar',
+                              'Netgen\nApril': 'Apr', 'Netgen\nMay': 'May', 'Netgen\nJune': 'Jun', 'Netgen\nJuly':
+                                  'Jul', 'Netgen\nAugust': 'Aug', 'Netgen\nSeptember': 'Sep', 'Netgen\nOctober': 'Oct',
+                              'Netgen\nNovember': 'Nov', 'Netgen\nDecember': 'Dec', 'Net Generation\n(Megawatthours)':
+                                  'Annual Energy'}, inplace=True)
+
 
         # test_df = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
         #                                sheet_name=0, header=5, usecols="A,CB:CM,CR")
@@ -137,26 +147,29 @@ class SetupData(object):
         #     else:
         #         monthly_energy.iloc[new_counter, 12:24] += monthly_energy_full.iloc[i, 12:24]
 
-        df923test = df923.groupby(['Plant Id', 'Plant Type']).sum()
+        df923group = df923.groupby(['Plant Id', 'Plant Type']).sum()
 
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
+        # writer = pd.ExcelWriter('eia923_df.xlsx', engine='xlsxwriter')
+        # df923group.to_excel(writer)
+        # writer.save()
 
-        f = open('eia923txt.txt', 'w')
-        f.write(df923test.loc[:30, :])
-
-        # print(df923.loc[:10, :])
+        # print(df923group.loc[:10, :])
         # print(df923test.loc[:30, :])
 
         # print(monthly_energy_full['Plant Id'].value_counts())
         # # remove columns for prime mover and fuel type (below)
         # monthly_energy = monthly_energy.drop(columns=['Reported\nPrime Mover', 'AER\nFuel Type Code'])
-        return df923test
+        return df923group
 
     def setup_eia860(self):
         """This method loads the EIA 860-Generators form as a dataframe from the excel download. The dataframe is
         organized where each index is a unique 'power plant', as defined for the purposes of the CEPM tool.
         Each power plant of uniform plant type is a unique entry, and power plants with multiple plant types are listed
         as separate entries."""
+        # -------------Things to fix------------- #
+        # Operating month and operating year are being added together
+        # Need to keep (all col names exact) Utility ID, Utility Name, Plant Name, Technology, Prime Mover
         print('setting up EIA 860 dataframe ' + str(datetime.datetime.now().time()))
         # import dataframe from excel file
         df860gen = pd.read_excel(self.data_path + '/3_1_Generator_Y2015.xlsx',
@@ -190,21 +203,46 @@ class SetupData(object):
         df860gen['Plant Id'] = df860gen['Plant Id'].astype(int)
 
         # group to match df923
-        df860test = df860gen.groupby(['Plant Id', 'Plant Type']).sum()
+        df860group = df860gen.groupby(['Plant Id', 'Plant Type']).sum()
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
-        f = open('eia860txt.txt', 'w')
-        f.write(df860test.loc[:30, :])
+
+        # writer = pd.ExcelWriter('eia860_df.xlsx', engine='xlsxwriter')
+        # df860group.to_excel(writer)
+        # writer.save()
+
         # print(df860gen.loc[:30, :])
-        # print(df860test.loc[:30, :])
+        # print(df860group.loc[:30, :])
 
-        return df860test
+        return df860group
 
-    def setup_dfpp(self, df923test, df860test):
+    def setup_dfpp(self, df923group, df860group):
         """This method combines df923 and df860gen into one cumulative power plant dataframe."""
+        # -------------Things to fix---------- #
+        # We lose cols
+        # Operator Id, NAICS Code, EIA Sector Number, YEAR, Operating Month, Operating Year are all being summed
+        # Make zeros in 'Nameplate Capacity (MW)' NaNs
+        # Label each index with Plant Id in a column, drop the first index
         print('setting up Power Plant dataframe ' + str(datetime.datetime.now().time()))
-        dfpp = pd.merge(df923test, df860test, how='outer', on=['Plant Id', 'Plant Type'])
-
+        dfpp = pd.merge(df923group, df860group, how='outer', on=['Plant Id', 'Plant Type'])
+        # dfpp['Average Annual Capacity Factor'] = dfpp['Annual Energy'].divide(
+        #     dfpp['Nameplate Capacity (MW)']*8760)
+        # months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        # dfpp['JaCF', 'FeCF', 'MhCF', 'ApCF', 'MyCF', 'JnCF', 'JlCF', 'AuCF', 'SeCF', 'OcCF', 'NoCF', 'DeCF'] = \
+        #     dfpp.loc['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].\
+        #         divide(dfpp['Nameplate Capacity (MW)'])
+        dfpp.sortlevel(inplace=True)
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
-        f = open('powerplants_txt.txt', 'w')
-        f.write(dfpp)
+
+        # writer = pd.ExcelWriter('powerplant_df.xlsx', engine='xlsxwriter')
+        # dfpp.to_excel(writer)
+        # writer.save()
+        print(dfpp)
         return dfpp
+
+    def calculate_monthly_energy(self, dfpp, plant_id, plant_type, nameplate):
+        """This method calculates the monthly energy requirements given a nameplate capacity."""
+        months = ['JaCF', 'FeCF', 'MhCF', 'ApCF', 'MyCF', 'JnCF', 'JlCF', 'AuCF', 'SeCF', 'OcCF', 'NoCF', 'DeCF']
+        monthly_energy = dfpp.loc[('at', [plant_id, plant_type]), months] * nameplate
+        print('The monthly energy required for Plant ' + str(plant_id) + ' (' + str(plant_type) + ') ' + ' is:')
+        print(monthly_energy)
+        return monthly_energy

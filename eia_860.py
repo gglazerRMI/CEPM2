@@ -13,7 +13,7 @@ def unzip(zip_file_path, directory_to_extract_to):
         z.extractall(directory_to_extract_to)
 
 
-class SetupData(object):
+class SetupDataEIA(object):
     def __init__(self):
         if not os.path.exists('data'):
             os.makedirs('data')

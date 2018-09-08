@@ -81,7 +81,7 @@ class SetupData(object):
     Class for setting up all the data, this is a less than perfect use for a class
     thinking we sort of use it like a function that can share certain parts of itself
     '''
-    def __init__(self, year, export_all=False):
+    def __init__(self, year, export_all=True):
         # Create data and tmp directories, /Users/gglazer/PycharmProjects
         if not os.path.exists('data'):
             os.makedirs('data')

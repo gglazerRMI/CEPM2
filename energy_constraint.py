@@ -14,7 +14,13 @@ def unzip(zip_file_path, directory_to_extract_to):
         z.extractall(directory_to_extract_to)
 
 
-class SetupData(object):
+def save_pickle(contents, name):
+    # function to save to an object as a pickle
+    with open(str(name) + '.pkl', 'wb') as output:
+        pickle.dump(contents, output, pickle.HIGHEST_PROTOCOL)
+
+
+class SetupDataE(object):
     '''
     Class for setting up all the data, this is a less than perfect use for a class
     thinking we sort of use it like a function that can share certain parts of itself
@@ -180,7 +186,8 @@ class SetupData(object):
         as separate entries."""
         # -------------Things to fix------------- #
         # Only looks at Energy Source 1, despite the fact that some plants use multiple sources of energy. This may lead
-        # 3to inaccurate measurements for similar plant types.
+        # to inaccurate measurements for similar plant types.
+        # Should I delete temporary dataframes?
         print('setting up EIA 860 dataframe ' + str(datetime.datetime.now().time()))
         # import dataframe from excel file
         df860gen = pd.read_excel(self.data_path + '/3_1_Generator_Y2015.xlsx',
@@ -268,6 +275,8 @@ class SetupData(object):
 
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
         # print(dfpp.loc[:10, :])
+
+        save_pickle(dfpp, 'pppickle')
 
         # Write data frame to Excel file
         writer = pd.ExcelWriter('powerplant_df.xlsx', engine='xlsxwriter')

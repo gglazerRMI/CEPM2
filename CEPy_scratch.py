@@ -1,11 +1,12 @@
 from energy_constraint import *
-# from CEPy import *
+from hourly_net_load_constraint import *
 # from eia_860 import *
 pd.set_option('display.max_rows', 200)
 pd.set_option('display.max_columns', 30)
-# SetupData(2016)
+# SetupDataE(102, 'NGCC', 1000)
+SetupDataL(respondent_id=102, forecast_year=2026, state='AL', export_all=True)
 # SetupDataEIA()
-SetupData(102, 'NGCT', 800)
+# SetupDataE(102, 'NGCT', 800)
 # Calculate_Monthly_Energy(dfpp, 10, 'NGCT', 1000)
 
 # Tests for debugging 860 + 923 merge

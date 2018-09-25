@@ -71,7 +71,7 @@ forecast_year = 2020
 curr_year = 2016
 
 
-# --------- Load Data --------- #
+# # --------- Load Data (this has been ported into hourly_net_load--------- #
 print('Loading data ' + str(datetime.datetime.now().time()))
 
 # Load power plant data frame for all respondents
@@ -140,7 +140,7 @@ print(current_8760)
 
 ## BUILD OUT TRY EXCEPT HERE TOO (maybe do try/except earlier on)
 # Load growth for respondent from demand forecast
-cagr = demand_forecast.loc[respondent_id, 'load_growth']
+cagr = max(0, demand_forecast.loc[respondent_id, 'load_growth'])
 del demand_forecast
 
 
@@ -238,6 +238,7 @@ print(fut_net_load_8760[:10])
 print('future net load sorted')
 print(net_load_sorted[:10])
 net_load_sorted.reset_index(inplace=True)
+# net_load_sorted['Date'] = str((net_load_sorted['Month']).apply('{:0>2}'.format)) +
 # net_load_sorted['Date'] = net_load_sorted['Month'].astype(str) + net_load_sorted['Day'].astype(str)
 
     # str(forecast_year) + '-' + str(net_load_sorted['Month']) + '-' + str(net_load_sorted['Day']) \

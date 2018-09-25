@@ -67,6 +67,8 @@ class SetupDataE(object):
 
     def acquire_eia860(self):
         if not os.path.exists(self.data_path + '/3_1_Generator_Y2015.xlsx'):
+
+            ## DEBUG THIS, CHECK THAT IT'S NOT A ZIP
             print('downloading EIA 860', str(datetime.datetime.now().time()))
             urllib.request.urlretrieve('https://www.eia.gov/electricity/data/eia860/xls/eia8602015.zip',
                                        self.data_path + '/tmp/EIA860.zip')

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd5c5965-424b-4df4-a2f9-570af42adbe4" name="Default Changelist" comment="">
+    <list default="true" id="dd5c5965-424b-4df4-a2f9-570af42adbe4" name="Default Changelist" comment="Scratch2 contains code that will eventually go into hourly net load&#10;Scratch2 finds top 50 hours of forecast net generation (gross load - &#10;renewables)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CEPy_scratch.py" beforeDir="false" afterPath="$PROJECT_DIR$/CEPy_scratch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/energy_constraint.py" beforeDir="false" afterPath="$PROJECT_DIR$/energy_constraint.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hourly_net_load_constraint.py" beforeDir="false" afterPath="$PROJECT_DIR$/hourly_net_load_constraint.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scratch2.py" beforeDir="false" afterPath="$PROJECT_DIR$/scratch2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,25 +73,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/energy_constraint.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="311" column="59" selection-start-line="311" selection-start-column="59" selection-end-line="311" selection-end-column="59" />
+            <state relative-caret-position="255">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
               <folding>
-                <marker date="1537818657124" expanded="true" signature="5902:6078" ph="..." />
-                <marker date="1537818657124" expanded="true" signature="6101:6110" ph="..." />
-                <marker date="1537818657124" expanded="true" signature="17159:17164" ph="..." />
+                <element signature="e#0#14#0" expanded="true" />
+                <element signature="e#192#315#0" />
+                <element signature="e#345#479#0" />
+                <element signature="e#355#512#0" />
+                <element signature="e#1410#3331#0" />
+                <element signature="e#3371#5041#0" />
+                <element signature="e#3452#5041#0" />
+                <element signature="e#5083#5817#0" />
+                <element signature="e#5857#6018#0" />
+                <element signature="e#6056#10313#0" />
+                <element signature="e#10472#15006#0" />
+                <element signature="e#14920#17020#0" />
+                <marker date="1537907017118" expanded="true" signature="6143:6319" ph="..." />
+                <marker date="1537907017118" expanded="true" signature="6342:6351" ph="..." />
+                <marker date="1537907017118" expanded="true" signature="16961:16962" ph="..." />
+                <marker date="1537907017118" expanded="true" signature="17541:17546" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hourly_net_load_constraint.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3150">
-              <caret line="215" selection-start-line="215" selection-end-line="215" />
+            <state relative-caret-position="-2909">
+              <caret line="255" column="31" selection-start-line="255" selection-start-column="31" selection-end-line="255" selection-end-column="31" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#642#776#0" />
@@ -106,10 +115,11 @@
                 <element signature="e#4489#5933#0" />
                 <element signature="e#6001#8371#0" />
                 <element signature="e#8461#10069#0" />
-                <marker date="1537834311564" expanded="true" signature="1949:1985" ph="..." />
-                <marker date="1537834311564" expanded="true" signature="9769:10083" ph="..." />
-                <marker date="1537834311564" expanded="true" signature="12580:12589" ph="..." />
-                <marker date="1537834311564" expanded="true" signature="14340:14349" ph="..." />
+                <element signature="e#9778#10172#0" />
+                <marker date="1537906825528" expanded="true" signature="1949:1985" ph="..." />
+                <marker date="1537906825528" expanded="true" signature="10127:10596" ph="..." />
+                <marker date="1537906825528" expanded="true" signature="13561:13570" ph="..." />
+                <marker date="1537906825528" expanded="true" signature="15448:15457" ph="..." />
               </folding>
             </state>
           </provider>
@@ -130,7 +140,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scratch2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2633">
+            <state relative-caret-position="440">
               <caret line="245" column="22" selection-start-line="245" selection-start-column="22" selection-end-line="245" selection-end-column="22" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
@@ -145,8 +155,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CEPy_scratch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+            <state relative-caret-position="179">
+              <caret line="35" column="32" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -220,6 +230,11 @@
             <path>
               <item name="CEP1" type="b2602c69:ProjectViewProjectNode" />
               <item name="CEP1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CEP1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CEP1" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CEP1" type="b2602c69:ProjectViewProjectNode" />
@@ -492,14 +507,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4988764" visible="true" weight="0.38586956" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49803305" visible="true" weight="0.38586956" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32932332" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32932332" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32932332" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5011236" side_tool="true" weight="0.33533835" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="9" sideWeight="0.50196695" side_tool="true" visible="true" weight="0.38586956" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32932332" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -559,12 +574,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/energy_constraint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="311" column="59" selection-start-line="311" selection-start-column="59" selection-end-line="311" selection-end-column="59" />
+        <state relative-caret-position="255">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
           <folding>
-            <marker date="1537818657124" expanded="true" signature="5902:6078" ph="..." />
-            <marker date="1537818657124" expanded="true" signature="6101:6110" ph="..." />
-            <marker date="1537818657124" expanded="true" signature="17159:17164" ph="..." />
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#192#315#0" />
+            <element signature="e#345#479#0" />
+            <element signature="e#355#512#0" />
+            <element signature="e#1410#3331#0" />
+            <element signature="e#3371#5041#0" />
+            <element signature="e#3452#5041#0" />
+            <element signature="e#5083#5817#0" />
+            <element signature="e#5857#6018#0" />
+            <element signature="e#6056#10313#0" />
+            <element signature="e#10472#15006#0" />
+            <element signature="e#14920#17020#0" />
+            <marker date="1537907017118" expanded="true" signature="6143:6319" ph="..." />
+            <marker date="1537907017118" expanded="true" signature="6342:6351" ph="..." />
+            <marker date="1537907017118" expanded="true" signature="16961:16962" ph="..." />
+            <marker date="1537907017118" expanded="true" signature="17541:17546" ph="..." />
           </folding>
         </state>
       </provider>
@@ -588,7 +616,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scratch2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2633">
+        <state relative-caret-position="440">
           <caret line="245" column="22" selection-start-line="245" selection-start-column="22" selection-end-line="245" selection-end-column="22" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
@@ -599,13 +627,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RPS_csv.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RPS_csv.csv" />
     <entry file="file://$PROJECT_DIR$/CEPy_scratch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+        <state relative-caret-position="179">
+          <caret line="35" column="32" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -614,8 +640,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hourly_net_load_constraint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3150">
-          <caret line="215" selection-start-line="215" selection-end-line="215" />
+        <state relative-caret-position="-2909">
+          <caret line="255" column="31" selection-start-line="255" selection-start-column="31" selection-end-line="255" selection-end-column="31" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <element signature="e#642#776#0" />
@@ -626,10 +652,11 @@
             <element signature="e#4489#5933#0" />
             <element signature="e#6001#8371#0" />
             <element signature="e#8461#10069#0" />
-            <marker date="1537834311564" expanded="true" signature="1949:1985" ph="..." />
-            <marker date="1537834311564" expanded="true" signature="9769:10083" ph="..." />
-            <marker date="1537834311564" expanded="true" signature="12580:12589" ph="..." />
-            <marker date="1537834311564" expanded="true" signature="14340:14349" ph="..." />
+            <element signature="e#9778#10172#0" />
+            <marker date="1537906825528" expanded="true" signature="1949:1985" ph="..." />
+            <marker date="1537906825528" expanded="true" signature="10127:10596" ph="..." />
+            <marker date="1537906825528" expanded="true" signature="13561:13570" ph="..." />
+            <marker date="1537906825528" expanded="true" signature="15448:15457" ph="..." />
           </folding>
         </state>
       </provider>

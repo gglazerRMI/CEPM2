@@ -112,12 +112,18 @@ class SetupDataL(object):
             os.makedirs('data')
         if not os.path.exists('data/tmp'):
             os.makedirs('data/tmp')
+        if not os.path.exists('data/pickles'):
+            os.makedirs('data/pickles')
+        if not os.path.exists('data/results'):
+            os.makedirs('data/results')
         self.data_path = os.path.abspath('data')
         self.export_all = export_all
         self.acquire_ferc()
         self.setup_ferc_forecast(curr_year)
         self.setup_ferc_gross_load(curr_year)
         self.setup_renewable_8760()
+
+    print('Setting up hourly net load data ', str(datetime.datetime.now().time()))
 
     def acquire_ferc(self):
         # download FERC 714 if relevant files are not in 'data' directory
@@ -141,7 +147,7 @@ class SetupDataL(object):
     def setup_ferc_forecast(self, curr_year):
         # -----------TO FIX------------ #
         # get_value and set_value are both deprecated, use at[] or iat[]
-
+        print('Setting up demand forecast ', str(datetime.datetime.now().time()))
         # this code loads FERC 714 demand forecasts and calculates the implied
         # annual load growth for each respondent
         temp_demand_forecast = pd.read_csv(self.data_path + '/Part 3 Schedule 2 - Planning Area Forecast Demand.csv')
@@ -176,8 +182,8 @@ class SetupDataL(object):
             except ZeroDivisionError:
                 print('Error calculating demand growth for ' + str(i) + ' because initial value is zero\n')
         if self.export_all:
-            demand_forecast.to_csv(self.data_path + '/tmp/demand_forecast.csv')
-        save_pickle(demand_forecast, 'demand_forecast_pickle')
+            demand_forecast.to_csv(self.data_path + '/results/demand_forecast.csv')
+        save_pickle(demand_forecast, self.data_path + '/pickles/demand_forecast_pickle')
         return demand_forecast
 
     def setup_ferc_gross_load(self, curr_year):
@@ -185,6 +191,9 @@ class SetupDataL(object):
         # need to grow the load by the growth rate in demand_forecast 'load_growth' to the forecast year
         # this code loads FERC 714 demand data and produces a dataframe
         # of hourly load data, columns for each respondent
+
+        print('Setting up gross load ', str(datetime.datetime.now().time()))
+
         temp_gross_load_df = pd.read_csv(self.data_path + '/Part 3 Schedule 2 - Planning Area Hourly Demand.csv')
         temp_gross_load_df = temp_gross_load_df.ix[:, 0:31]
         temp_gross_load_index = temp_gross_load_df.set_index('respondent_id')
@@ -197,22 +206,28 @@ class SetupDataL(object):
         del temp_gross_load_df
         max_load = gross_load_df.max(axis=0).T
         if self.export_all:
-            gross_load_df.to_csv(self.data_path + '/tmp/gross_load.csv')
-            max_load.to_csv(self.data_path + '/tmp/max_load.csv')
+            gross_load_df.to_csv(self.data_path + '/results/gross_load.csv')
+            max_load.to_csv(self.data_path + '/results/max_load.csv')
 
         # data frame of the gross load for all respondents in the current year
         gross_load_df = gross_load_df[gross_load_df.index.year == curr_year]
 
-        save_pickle(gross_load_df, 'gross_load_pickle')
+        save_pickle(gross_load_df, self.data_path + '/pickles/gross_load_pickle')
 
         return gross_load_df
 
     def setup_renewable_8760(self):
         # Load the renewable portfolio standard data frame for all states
+
+        # ------TO FIX------- #
+        # add for Texas
+
+        print('Setting up RPS ', str(datetime.datetime.now().time()))
+
         df_rps = pd.read_csv(self.data_path + '/RPS_csv.csv')
         df_rps.set_index('State', inplace=True)
         df_rps.dropna(axis=0, subset=['RPS RE%'], inplace=True)
-        save_pickle(df_rps, 'rps_pickle')
+        save_pickle(df_rps, self.data_path + '/pickles/rps_pickle')
 
         return df_rps
 
@@ -222,24 +237,34 @@ class CEPCase(object):
     An instance of this class is a CEP case
     """
     def __init__(self,
-                 name,
+                 # name,
                  util,
                  util2,
                  state,
                  region,
-                 capacity,
+                 # capacity,
                  current_year,
                  forecast_year,
-                 more_args,
+                 # more_args,
                  export_all=False,
-                 load_old=True):
+                 # load_old=True
+                 save_results=True
+                 ):
+        if not os.path.exists('data'):
+            os.makedirs('data')
+        if not os.path.exists('data/tmp'):
+            os.makedirs('data/tmp')
+        if not os.path.exists('data/pickles'):
+            os.makedirs('data/pickles')
+        if not os.path.exists('data/results'):
+            os.makedirs('data/results')
         self.data_path = os.path.abspath('data')
-        self.name = name
+        # self.name = name
         self.util = util
         self.util2 = util2
         self.state = state
         self.region = region
-        self.capacity = capacity
+        # self.capacity = capacity
         self.current_year = current_year
         self.forecast_year = forecast_year
         self.export_all = export_all
@@ -253,7 +278,7 @@ class CEPCase(object):
         net_load_sorted = self.calculate_hourly_net_load(forecast_year, current_year, state, util, cagr,
                                                          norm_wind_8760,norm_solar_8760, current_wind_8760,
                                                          current_solar_8760, current_wind_df, current_solar_df,
-                                                         current_8760, dfpp_resp, df_rps)
+                                                         current_8760, dfpp_resp, df_rps, save_results)
         # lots more stuff and settings
 
         # this allows us to not have to load all the individual data sources again
@@ -271,15 +296,17 @@ class CEPCase(object):
         # # an instance of the class is created
         # self.prepare_matrices()
 
-    def import_data(self, region):
-        # this function imports the nicely formatted data from
-        # the setup function into the class
+    print('Running case ', str(datetime.datetime.now().time()))
 
-        dfpp = load_pickle(self.data_path + 'pppickle')
+    def import_data(self, region):
+        # this function imports the nicely formatted data from the setup function into the class
+        print('importing case data ', str(datetime.datetime.now().time()))
+
+        dfpp = load_pickle(self.data_path + '/pickles/pppickle')
         dfpp.reset_index(inplace=True)
-        demand_forecast = load_pickle(self.data_path + 'demand_forecast_pickle')
-        gross_load_df = load_pickle(self.data_path + 'gross_load_pickle')
-        df_rps = load_pickle(self.data_path + 'rps_pickle')
+        demand_forecast = load_pickle(self.data_path + '/pickles/demand_forecast_pickle')
+        gross_load_df = load_pickle(self.data_path + '/pickles/gross_load_pickle')
+        df_rps = load_pickle(self.data_path + '/pickles/rps_pickle')
 
         # Load the renewable energy normalized 8760s from Reinventing Fire
         df_norm_renewable_cap = pd.read_excel(self.data_path + '/Region_Data.xlsm', sheet_name=region, usecols='A,Y:AA')
@@ -297,8 +324,11 @@ class CEPCase(object):
 
         return dfpp, demand_forecast, gross_load_df, df_norm_renewable_cap, df_rps
 
-    def prepare_case_data(self, dfpp, demand_forecast, gross_load_df, df_norm_renewable_cap, respondent_id, respondent_id_backup):
+    def prepare_case_data(self, dfpp, demand_forecast, gross_load_df, df_norm_renewable_cap, respondent_id,
+                          respondent_id_backup):
         # this function sets up necessary datasets in order to calculate net load for the chosen entity
+
+        print('preparing case data ', str(datetime.datetime.now().time()))
 
         # power plant data frame for respondent
         try:
@@ -324,19 +354,17 @@ class CEPCase(object):
         current_8760['Hour'] = current_8760['Date'].dt.hour
         current_8760.set_index(['Month', 'Day', 'Hour'], inplace=True)
         current_8760.dropna(inplace=True)
-        print('current 8760 raw input')
-        print(current_8760)
 
         # Load growth for respondent from demand forecast
-        cagr = max(0, demand_forecast.loc[respondent_id, 'load_growth'])
+        cagr = max(0.0, demand_forecast.loc[respondent_id, 'load_growth'])
 
         # Normalized 8760s for renewable energy sources
         norm_wind_8760 = df_norm_renewable_cap[['Wind']]
-        print('normalized re df: ')
-        print(df_norm_renewable_cap)
+        # print('normalized re df: ')
+        # print(df_norm_renewable_cap)
         norm_solar_8760 = df_norm_renewable_cap[['Solar']]
-        print('normalized solar df: ')
-        print(norm_solar_8760)
+        # print('normalized solar df: ')
+        # print(norm_solar_8760)
 
         # Current wind energy 8760 from nameplate capacity and normalized 8760
         current_wind_df = dfpp_resp.loc[(dfpp_resp['Plant Type'] == 'WND')]
@@ -353,12 +381,19 @@ class CEPCase(object):
         print('Case data prepared! ' + str(datetime.datetime.now().time()))
 
         return cagr, current_8760, norm_wind_8760, norm_solar_8760, current_wind_8760, current_solar_8760, \
-               current_wind_df, current_solar_df, dfpp_resp
+                current_wind_df, current_solar_df, dfpp_resp
+
+# -------- TO FIX ----------- #
+# make sure that there isn't needless returning/inputting between case prep and calculations. maybe do more
+    # "calculations" in case prep
 
     def calculate_hourly_net_load(self, forecast_year, curr_year, state, respondent_id, cagr, norm_wind_8760,
                                   norm_solar_8760, current_wind_8760, current_solar_8760, current_wind_df,
-                                  current_solar_df, current_8760, dfpp_resp, df_rps):
+                                  current_solar_df, current_8760, dfpp_resp, df_rps, save_results):
         # This function calculates the top 50 hours of net load for the chosen entity
+
+        print('Calculating hourly net load ', str(datetime.datetime.now().time()))
+
         regional_wind_yearly_cfh = norm_wind_8760['Wind'].sum()
         regional_solar_yearly_cfh = norm_solar_8760['Solar'].sum()
         print('normalized 8760 total annual solar energy (yearly solar CFH) is ' + str(regional_solar_yearly_cfh))
@@ -407,9 +442,10 @@ class CEPCase(object):
 
         # For states with no projected renewable growth from RPS and no growth rate, assume renewable CFs match
         # historic, not the normalized 8760s from Reinventing Fire
-        if re_frac_fut == re_frac_curr & cagr == 0:
-            fut_wind_8760 = current_wind_8760
-            fut_solar_8760 = current_solar_8760
+        if re_frac_fut == re_frac_curr:
+            if cagr == 0.0:
+                fut_wind_8760 = current_wind_8760
+                fut_solar_8760 = current_solar_8760
         else:
             fut_wind_8760 = norm_wind_8760[['Wind']] * fut_wind_cap
             fut_solar_8760 = norm_solar_8760[['Solar']] * fut_solar_cap
@@ -421,6 +457,9 @@ class CEPCase(object):
         fut_net_load_8760.dropna(inplace=True)
         net_load_sorted = fut_net_load_8760.sort_values(by=str(respondent_id), ascending=False)
         net_load_sorted.reset_index(inplace=True)
+
+        if save_results:
+            net_load_sorted.to_csv(self.data_path + '/results/net_load_sorted.csv')
 
         return net_load_sorted
 

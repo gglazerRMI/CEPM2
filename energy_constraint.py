@@ -14,6 +14,13 @@ def unzip(zip_file_path, directory_to_extract_to):
         z.extractall(directory_to_extract_to)
 
 
+def load_pickle(name):
+    # function to load an object from a pickle
+    with open(str(name) + '.pkl', 'rb') as f:
+        temp = pickle.load(f)
+    return temp
+
+
 def save_pickle(contents, name):
     # function to save to an object as a pickle
     with open(str(name) + '.pkl', 'wb') as output:
@@ -25,12 +32,16 @@ class SetupDataE(object):
     Class for setting up all the data, this is a less than perfect use for a class
     thinking we sort of use it like a function that can share certain parts of itself
     '''
-    def __init__(self, respondent_id, plant_type, nameplate):
+    def __init__(self, export_all=False):
         # Create data and tmp directories
         if not os.path.exists('data'):
             os.makedirs('data')
         if not os.path.exists('data/tmp'):
             os.makedirs('data/tmp')
+        if not os.path.exists('data/pickles'):
+            os.makedirs('data/pickles')
+        if not os.path.exists('data/results'):
+            os.makedirs('data/results')
         self.data_path = os.path.abspath('data')
         self.acquire_eia923()
         self.acquire_eia860()
@@ -38,8 +49,7 @@ class SetupDataE(object):
         ferc_key = self.setup_FERC_key()
         df923 = self.setup_eia923()
         df860 = self.setup_eia860()
-        dfpp = self.setup_dfpp(df923, df860, ferc_key)
-        self.calculate_monthly_energy(dfpp, respondent_id, plant_type, nameplate)
+        self.setup_dfpp(df923, df860, ferc_key, export_all)
 
     def acquire_eia923(self):
         # download EIA 923 if relevant files are not in 'data' directory
@@ -169,16 +179,6 @@ class SetupDataE(object):
 
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
 
-        # Write data frame to Excel file
-        writer = pd.ExcelWriter('eia923group_df.xlsx', engine='xlsxwriter')
-        df923group.to_excel(writer)
-        writer.save()
-
-        # print(df923test.loc[:30, :])
-
-        # print(monthly_energy_full['Plant Id'].value_counts())
-        # # remove columns for prime mover and fuel type (below)
-        # monthly_energy = monthly_energy.drop(columns=['Reported\nPrime Mover', 'AER\nFuel Type Code'])
         return df923group
 
     def setup_eia860(self):
@@ -241,14 +241,9 @@ class SetupDataE(object):
         # print(df860group.loc[:10, :])
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
 
-        # Write data frame to Excel file
-        writer = pd.ExcelWriter('eia860_df.xlsx', engine='xlsxwriter')
-        df860group.to_excel(writer)
-        writer.save()
-
         return df860group
 
-    def setup_dfpp(self, df923group, df860group, ferc_key):
+    def setup_dfpp(self, df923group, df860group, ferc_key, export_all):
         """This method combines df923 and df860gen into one cumulative power plant dataframe."""
         # -------------Things to fix---------- #
         # We lose indices that aren't in both df923 and df860
@@ -278,16 +273,34 @@ class SetupDataE(object):
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
         # print(dfpp.loc[:10, :])
 
-        save_pickle(dfpp, 'pppickle')
+        save_pickle(dfpp, self.data_path + '/pickles/pppickle')
 
-        # Write data frame to Excel file
-        writer = pd.ExcelWriter('powerplant_df.xlsx', engine='xlsxwriter')
-        dfpp.to_excel(writer)
-        writer.save()
+        if export_all:
+            # Write data frame to Excel file
+            writer = pd.ExcelWriter('powerplant_df.xlsx', engine='xlsxwriter')
+            dfpp.to_excel(writer)
+            writer.save()
 
         return dfpp
 
-    def calculate_monthly_energy(self, dfpp, respondent_id, plant_type, nameplate):
+
+class CalculateMonthlyEnergy(object):
+    '''
+    Class for monthly energy calcs
+    '''
+    def __init__(self, respondent_id, plant_type, nameplate, save_results=True, export_all=False):
+        if not os.path.exists('data'):
+            os.makedirs('data')
+        if not os.path.exists('data/tmp'):
+            os.makedirs('data/tmp')
+        if not os.path.exists('data/pickles'):
+            os.makedirs('data/pickles')
+        if not os.path.exists('data/results'):
+            os.makedirs('data/results')
+        self.data_path = os.path.abspath('data')
+        self.calculate_monthly_energy(respondent_id, plant_type, nameplate, save_results, export_all)
+
+    def calculate_monthly_energy(self, respondent_id, plant_type, nameplate, save_results, export_all):
         """This method calculates the monthly energy requirements given a nameplate capacity and FERC Respondent ID.
         The monthly energy capacity factor hours for all plant types operated by a FERC Respondent ID are averaged and
         multiplied by the nameplate capacity.
@@ -300,6 +313,9 @@ class SetupDataE(object):
         monthly_cfh = ['JanCFH', 'FebCFH', 'MarCFH', 'AprCFH', 'MayCFH', 'JunCFH', 'JulCFH', 'AugCFH', 'SepCFH', 'OctCF'
                        , 'NovCF', 'DecCF']
 
+        # load power plant data frame
+        dfpp = load_pickle(self.data_path + '/pppickle')
+
         # reset index to enable lookup by respondent ID and plant type
         dfpp.reset_index(inplace=True)
         # select only entries corresponding to the correct plant type within a service area
@@ -309,36 +325,38 @@ class SetupDataE(object):
         df_average_plant = df_selected_plants.groupby(['Respondent Id', 'Plant Type'])[cols].agg('mean')
 
         # Calculate MWh needed for each month
-        monthly_energies = df_average_plant[monthly_cfh] * nameplate
-        monthly_energies.rename(columns={'JanCFH': 'Jan_MWh', 'FebCFH': 'Feb_MWh', 'MarCFH': 'Mar_MWh',
+        monthly_energy = df_average_plant[monthly_cfh] * nameplate
+        monthly_energy.rename(columns={'JanCFH': 'Jan_MWh', 'FebCFH': 'Feb_MWh', 'MarCFH': 'Mar_MWh',
                                          'AprCFH': 'Apr_MWh', 'MayCFH': 'May_MWh', 'JunCFH': 'JunMWh',
                                          'JulCFH': 'JulMWh', 'AugCFH': 'Aug_MWh', 'SepCFH': 'Sep_MWh',
                                          'OctCF': 'Oct_MWh', 'NovCF': 'Nov_MWh', 'DecCF': 'Dec_MWh'}, inplace=True)
-        monthly_energies['Nameplate Capacity (MW)'] = nameplate
+        monthly_energy['Nameplate Capacity (MW)'] = nameplate
 
-        print(df_selected_plants.loc[:10, :])
-        print('Averages')
-        print(df_average_plant)
-        print('Monthly Energies')
-        print(monthly_energies)
+        save_pickle(monthly_energy, self.data_path + '/pickles/monthly_energy')
 
-        # Write eligible plants to Excel file
-        writer = pd.ExcelWriter('selected_plants_df.xlsx', engine='xlsxwriter')
-        df_selected_plants.to_excel(writer)
-        writer.save()
+        if save_results:
+            monthly_energy.to_csv(self.data_path + '/results/monthly_energy.csv')
 
-        # Write plant averages to Excel file
-        writer = pd.ExcelWriter('plant_averages_df.xlsx', engine='xlsxwriter')
-        df_average_plant.to_excel(writer)
-        writer.save()
+        if export_all:
+            # Write eligible plants to Excel file
+            writer = pd.ExcelWriter('selected_plants_df.xlsx', engine='xlsxwriter')
+            df_selected_plants.to_excel(writer)
+            writer.save()
 
-        # Write monthly energies to Excel file
-        writer = pd.ExcelWriter('monthly_energies.xlsx', engine='xlsxwriter')
-        monthly_energies.to_excel(writer)
-        writer.save()
+            # Write plant averages to Excel file
+            writer = pd.ExcelWriter('plant_averages_df.xlsx', engine='xlsxwriter')
+            df_average_plant.to_excel(writer)
+            writer.save()
 
-        # months = ['JaCF', 'FeCF', 'MhCF', 'ApCF', 'MyCF', 'JnCF', 'JlCF', 'AuCF', 'SeCF', 'OcCF', 'NoCF', 'DeCF']
-        # monthly_energy = dfpp.loc[('at', [respondent_id, plant_type]), months] * nameplate
-        # print('The monthly energy required for Plant ' + str(respondent_id) + ' (' + str(plant_type) + ') ' + ' is:')
-        # print(monthly_energy)
-        return monthly_energies
+            # Write monthly energies to Excel file
+            writer = pd.ExcelWriter('monthly_energies.xlsx', engine='xlsxwriter')
+            monthly_energy.to_excel(writer)
+            writer.save()
+
+            print(df_selected_plants.loc[:10, :])
+            print('Averages')
+            print(df_average_plant)
+            print('Monthly Energies')
+            print(monthly_energy)
+
+        return monthly_energy

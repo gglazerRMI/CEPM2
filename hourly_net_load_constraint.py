@@ -23,6 +23,11 @@ import pandas as pd
 # from pudl import models, models_ferc1, models_eia923
 # from pudl import settings, constants
 
+def unzip(zip_file_path, directory_to_extract_to):
+    # function to unzip a file
+    with zipfile.ZipFile(zip_file_path, "r") as z:
+        z.extractall(directory_to_extract_to)
+
 def load_pickle(name):
     # function to load an object from a pickle
     with open(str(name) + '.pkl', 'rb') as f:
@@ -96,11 +101,6 @@ def get_rps(df, rps_state):
             rps_yr = float('nan')
     return re_frac, rps_yr
 
-def unzip(zip_file_path, directory_to_extract_to):
-    # function to unzip a file
-    with zipfile.ZipFile(zip_file_path, "r") as z:
-        z.extractall(directory_to_extract_to)
-
 class SetupDataL(object):
     '''
     Class for setting up all the data, this is a less than perfect use for a class
@@ -121,7 +121,7 @@ class SetupDataL(object):
         self.acquire_ferc()
         self.setup_ferc_forecast(curr_year)
         self.setup_ferc_gross_load(curr_year)
-        self.setup_renewable_8760()
+        self.setup_rps()
 
     print('Setting up hourly net load data ', str(datetime.datetime.now().time()))
 
@@ -216,7 +216,7 @@ class SetupDataL(object):
 
         return gross_load_df
 
-    def setup_renewable_8760(self):
+    def setup_rps(self):
         # Load the renewable portfolio standard data frame for all states
 
         # ------TO FIX------- #
@@ -457,12 +457,17 @@ class CEPCase(object):
 
         net_load_sorted = fut_net_load_8760.sort_values(by=str(respondent_id), ascending=False)
         net_load_sorted.reset_index(inplace=True)
+
+        save_pickle(net_load_sorted, self.data_path + '/pickles/net_load_sorted')
+        save_pickle(max_hour, self.data_path + '/pickles/max_hour')
+
         print('net load sorted:')
 
         print(net_load_sorted)
 
         if save_results:
             net_load_sorted.to_csv(self.data_path + '/results/net_load_sorted.csv')
+            max_hour.to_csv(self.data_path + '/results/max_hour.csv')
 
         return net_load_sorted
 

@@ -80,7 +80,7 @@ class SetupDataE(object):
 
             ## DEBUG THIS, CHECK THAT IT'S NOT A ZIP
             print('downloading EIA 860', str(datetime.datetime.now().time()))
-            urllib.request.urlretrieve('https://www.eia.gov/electricity/data/eia860/xls/eia8602015.zip',
+            urllib.request.urlretrieve('https://www.eia.gov/electricity/data/eia860/archive/xls/eia8602015.zip',
                                        self.data_path + '/tmp/EIA860.zip')
             print('unzipping EIA 860', str(datetime.datetime.now().time()))
             unzip(self.data_path + '/tmp/EIA860.zip', self.data_path + '/tmp/EIA860')
@@ -306,6 +306,8 @@ class CalculateMonthlyEnergy(object):
         multiplied by the nameplate capacity.
         Only plants larger than 100 MW are included in the averaging."""
 
+        print('Calculating monthly energy constraint ', str(datetime.datetime.now().time()))
+
         min_plant_size = 100
         cols = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Annual Energy',
                 'JanCFH', 'FebCFH', 'MarCFH', 'AprCFH', 'MayCFH', 'JunCFH', 'JulCFH', 'AugCFH', 'SepCFH', 'OctCF',
@@ -314,7 +316,7 @@ class CalculateMonthlyEnergy(object):
                        , 'NovCF', 'DecCF']
 
         # load power plant data frame
-        dfpp = load_pickle(self.data_path + '/pppickle')
+        dfpp = load_pickle(self.data_path + '/pickles/pppickle')
 
         # reset index to enable lookup by respondent ID and plant type
         dfpp.reset_index(inplace=True)

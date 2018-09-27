@@ -101,136 +101,6 @@ def get_rps(df, rps_state):
             rps_yr = float('nan')
     return re_frac, rps_yr
 
-class SetupDataL(object):
-    '''
-    Class for setting up all the data, this is a less than perfect use for a class
-    thinking we sort of use it like a function that can share certain parts of itself
-    '''
-    def __init__(self, curr_year=2016, export_all=True):
-        # Create data and tmp directories, /Users/gglazer/PycharmProjects
-        if not os.path.exists('data'):
-            os.makedirs('data')
-        if not os.path.exists('data/tmp'):
-            os.makedirs('data/tmp')
-        if not os.path.exists('data/pickles'):
-            os.makedirs('data/pickles')
-        if not os.path.exists('data/results'):
-            os.makedirs('data/results')
-        self.data_path = os.path.abspath('data')
-        self.export_all = export_all
-        self.acquire_ferc()
-        self.setup_ferc_forecast(curr_year)
-        self.setup_ferc_gross_load(curr_year)
-        self.setup_rps()
-
-    print('Setting up hourly net load data ', str(datetime.datetime.now().time()))
-
-    def acquire_ferc(self):
-        # download FERC 714 if relevant files are not in 'data' directory
-        if not os.path.exists(self.data_path + '/Part 3 Schedule 2 - Planning Area Hourly Demand.csv'):
-            print('downloading FERC 714', str(datetime.datetime.now().time()))
-            urllib.request.urlretrieve('https://www.ferc.gov/docs-filing/forms/form-714/data/form714-database.zip',
-                                       self.data_path + '/tmp/FERC.zip')
-            print('unzipping FERC 714', str(datetime.datetime.now().time()))
-            unzip(self.data_path + '/tmp/FERC.zip', self.data_path + '/tmp/FERC')
-            os.remove(self.data_path + '/tmp/FERC.zip')
-            os.rename(self.data_path + '/tmp/FERC/Part 3 Schedule 2 - Planning Area Hourly Demand.csv',
-                      self.data_path + '/Part 3 Schedule 2 - Planning Area Hourly Demand.csv')
-            if not os.path.exists(self.data_path + '/Part 3 Schedule 2 - Planning Area Forecast Demand.csv'):
-                os.rename(self.data_path + '/tmp/FERC/Part 3 Schedule 2 - Planning Area Forecast Demand.csv',
-                          self.data_path + '/Part 3 Schedule 2 - Planning Area Forecast Demand.csv')
-            if not os.path.exists(self.data_path + '/Respondent IDs.csv'):
-                os.rename(self.data_path + '/tmp/FERC/Respondent IDs.csv',
-                          self.data_path + '/Respondent IDs.csv')
-            shutil.rmtree(self.data_path + '/tmp/FERC')
-
-    def setup_ferc_forecast(self, curr_year):
-        # -----------TO FIX------------ #
-        # get_value and set_value are both deprecated, use at[] or iat[]
-        print('Setting up demand forecast ', str(datetime.datetime.now().time()))
-        # this code loads FERC 714 demand forecasts and calculates the implied
-        # annual load growth for each respondent
-        temp_demand_forecast = pd.read_csv(self.data_path + '/Part 3 Schedule 2 - Planning Area Forecast Demand.csv')
-        temp_demand_forecast = temp_demand_forecast.iloc[:, 0:10]
-        # temp_demand_forecast['forecast'] = np.nan
-        # for i in list(temp_demand_forecast.index):
-        #     w = temp_demand_forecast.loc[i, 'winter_forecast']
-        #     s = temp_demand_forecast.loc[i, 'summer_forecast']
-        #     if w > s:
-        #         d = w
-        #     else:
-        #         d = s
-        #     temp_demand_forecast.set_value(i, 'forecast', d)
-        temp_demand_forecast = temp_demand_forecast.loc[temp_demand_forecast['report_yr'] == curr_year]
-        temp_demand_forecast = temp_demand_forecast.set_index(['respondent_id',
-                                                               'plan_year'])
-        temp_demand_forecast = temp_demand_forecast.drop(['report_yr', 'report_prd',
-                                                          'spplmnt_num', 'row_num',
-                                                          'summer_forecast', 'winter_forecast',
-                                                          'plan_year_f'], axis=1)
-        demand_forecast = temp_demand_forecast.unstack(level=[1])
-        demand_forecast.columns = demand_forecast.columns.droplevel(0)
-        del temp_demand_forecast
-        demand_forecast['load_growth'] = np.nan
-        for i in list(demand_forecast.index):
-            # first = demand_forecast.loc[i, (curr_year + 1)]
-            first = demand_forecast.loc[i, 2017]
-            last = demand_forecast.loc[i, 2026]
-            try:
-                growth = calc_cagr(first, last, 9, 'int')
-                demand_forecast.loc[i, 'load_growth'] = growth
-            except ZeroDivisionError:
-                print('Error calculating demand growth for ' + str(i) + ' because initial value is zero\n')
-        if self.export_all:
-            demand_forecast.to_csv(self.data_path + '/results/demand_forecast.csv')
-        save_pickle(demand_forecast, self.data_path + '/pickles/demand_forecast_pickle')
-        return demand_forecast
-
-    def setup_ferc_gross_load(self, curr_year):
-        # -------------TO FIX------------ #
-        # need to grow the load by the growth rate in demand_forecast 'load_growth' to the forecast year
-        # this code loads FERC 714 demand data and produces a dataframe
-        # of hourly load data, columns for each respondent
-
-        print('Setting up gross load ', str(datetime.datetime.now().time()))
-
-        temp_gross_load_df = pd.read_csv(self.data_path + '/Part 3 Schedule 2 - Planning Area Hourly Demand.csv')
-        temp_gross_load_df = temp_gross_load_df.ix[:, 0:31]
-        temp_gross_load_index = temp_gross_load_df.set_index('respondent_id')
-        all_ferc_ids = list(set(list(temp_gross_load_index.index.values)))
-        temp_gross_load_df = temp_gross_load_df.drop(['report_yr', 'report_prd',
-                                                      'spplmnt_num', 'row_num',
-                                                      'timezone'], axis=1)
-        temp_gross_load_df = temp_gross_load_df.set_index(['respondent_id', 'plan_date'])
-        gross_load_df = reshape_ferc(temp_gross_load_df, all_ferc_ids)
-        del temp_gross_load_df
-        max_load = gross_load_df.max(axis=0).T
-        if self.export_all:
-            gross_load_df.to_csv(self.data_path + '/results/gross_load.csv')
-            max_load.to_csv(self.data_path + '/results/max_load.csv')
-
-        # data frame of the gross load for all respondents in the current year
-        gross_load_df = gross_load_df[gross_load_df.index.year == curr_year]
-
-        save_pickle(gross_load_df, self.data_path + '/pickles/gross_load_pickle')
-
-        return gross_load_df
-
-    def setup_rps(self):
-        # Load the renewable portfolio standard data frame for all states
-
-        # ------TO FIX------- #
-        # add for Texas
-
-        print('Setting up RPS ', str(datetime.datetime.now().time()))
-
-        df_rps = pd.read_csv(self.data_path + '/RPS_csv.csv')
-        df_rps.set_index('State', inplace=True)
-        df_rps.dropna(axis=0, subset=['RPS RE%'], inplace=True)
-        save_pickle(df_rps, self.data_path + '/pickles/rps_pickle')
-
-        return df_rps
-
 
 class CEPCase(object):
     """
@@ -241,7 +111,7 @@ class CEPCase(object):
                  util,
                  util2,
                  state,
-                 region,
+                 region1,
                  # capacity,
                  current_year,
                  forecast_year,
@@ -262,12 +132,12 @@ class CEPCase(object):
         self.util = util
         self.util2 = util2
         self.state = state
-        self.region = region
+        self.region = region1
         self.current_year = current_year
         self.forecast_year = forecast_year
         self.export_all = export_all
         [dfpp, demand_forecast, gross_load_df, df_rps] = self.import_general_data()
-        [norm_wind_8760, norm_solar_8760] = self.import_regional_data(region)
+        [norm_wind_8760, norm_solar_8760] = self.import_regional_data(region1)
         [current_8760, current_wind_8760, current_solar_8760, current_wind_df, current_solar_df, dfpp_resp, re_frac_curr
             , wind_re_frac_curr, solar_re_frac_curr] = \
             self.prepare_current_case_data(dfpp, gross_load_df, norm_wind_8760, norm_solar_8760, util, util2)
@@ -291,9 +161,9 @@ class CEPCase(object):
 
         return dfpp, demand_forecast, gross_load_df, df_rps
 
-    def import_regional_data(self, region):
+    def import_regional_data(self, region1):
         # Load the renewable energy normalized 8760s from Reinventing Fire
-        df_norm_renewable_cap = pd.read_excel(self.data_path + '/Region_Data.xlsm', sheet_name=region, usecols='A,Y:AA')
+        df_norm_renewable_cap = pd.read_excel(self.data_path + '/Region_Data.xlsm', sheet_name=self.region, usecols='A,Y:AA')
         df_norm_renewable_cap.drop(labels=[0, 1, 2, 3], inplace=True)
         df_norm_renewable_cap['Date'] = pd.to_datetime(df_norm_renewable_cap['Date'])
         df_norm_renewable_cap['Month'] = df_norm_renewable_cap['Date'].dt.month

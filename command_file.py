@@ -1,5 +1,6 @@
-from energy_constraint import *
-from hourly_net_load_constraint import *
+from setup import *
+# from energy_constraint import *
+# from hourly_net_load_constraint import *
 
 
 # --------- Settings --------- #
@@ -21,7 +22,8 @@ pd.set_option('display.max_columns', 70)
 respondent_id = 209     # util
 respondent_id_backup = 209  # util2
 state = 'NE'    # state
-region = 'MidWest'  # region
+region1 = 'MidWest'  # region1
+region = 'Midwest'
 plant_type = 'NGCC'
 nameplate = 800         # nameplate capacity of proposed plant
 forecast_year = 2020    # forecast_year
@@ -40,8 +42,8 @@ SetupDataL(export_all=export_all)
 # SetupDataE(102, 'NGCT', 800)
 
 # --------- Calculate Constraints --------- #
-CalculateMonthlyEnergy(respondent_id=respondent_id, plant_type=plant_type, nameplate=nameplate)
-CEPCase(current_year=curr_year, forecast_year=forecast_year, util=respondent_id, util2=respondent_id_backup,
-        state=state, region=region)
+# CalculateMonthlyEnergy(respondent_id=respondent_id, plant_type=plant_type, nameplate=nameplate)
+# CEPCase(current_year=curr_year, forecast_year=forecast_year, util=respondent_id, util2=respondent_id_backup,
+#         state=state, region1=region1)
 
 print('le done')

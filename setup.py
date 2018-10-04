@@ -458,11 +458,11 @@ class SetupDataL(object):
             max_load.to_csv(self.data_path + '/results/max_load.csv')
 
         # data frame of the gross load for all respondents in the current year
-        gross_load_df = gross_load_df[gross_load_df.index.year == curr_year]
+        # gross_load_df = gross_load_df[gross_load_df.index.year == curr_year]
 
         save_pickle(gross_load_df, self.data_path + '/pickles/gross_load_pickle')
-
-        return gross_load_df
+        # print(gross_load_df)
+        return self
 
     def setup_rps(self):
         # Load the renewable portfolio standard data frame for all states
@@ -477,4 +477,15 @@ class SetupDataL(object):
         df_rps.dropna(axis=0, subset=['RPS RE%'], inplace=True)
         save_pickle(df_rps, self.data_path + '/pickles/rps_pickle')
 
-        return df_rps
+        return self
+
+    def import_re_8760s(self):
+
+        # Load the regional renewable energy normalized 8760s from Reinventing Fire
+
+        regions = ['Midwest', 'Northcentral', 'Northeast', 'Southeast', 'Southwest', 'Texas', 'West']
+        for i in range(len(regions)):
+            df = pd.read_excel('/Users/gglazer/PycharmProjects/CEP1/data/RE.xlsx', sheet_name=regions[i], usecols='A:E')
+            save_pickle(df, '/Users/gglazer/PycharmProjects/CEP1/data/pickles/' + str(regions[i]) + '_pickle')
+
+        return self

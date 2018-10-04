@@ -1,6 +1,6 @@
 from setup import *
 # from energy_constraint import *
-# from hourly_net_load_constraint import *
+from CEPCase import *
 
 
 # --------- Settings --------- #
@@ -33,10 +33,9 @@ save_results = True
 export_all = False
 
 # --------- Setup Data --------- #
-# SetupDataE(102, 'NGCC', 1000)
-SetupDataE(export_all=export_all)
-SetupDataL(export_all=export_all)
-
+# SetupDataE(export_all=export_all)
+# SetupDataL(export_all=export_all)
+CEPCase(util=101, util2=102, type='WND', state='AL', region='Southeast', capacity=1000, current_year=2016, forecast_year=2025)
 # SetupDataL(respondent_id=102, forecast_year=2026, state='AL', export_all=False)
 # SetupDataEIA()
 # SetupDataE(102, 'NGCT', 800)

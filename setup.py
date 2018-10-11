@@ -108,13 +108,14 @@ class SetupDataE(object):
         if not os.path.exists('data/results'):
             os.makedirs('data/results')
         self.data_path = os.path.abspath('data')
-        self.acquire_eia923()
+        # self.acquire_eia923()
         self.acquire_eia860()
-        self.acquire_FERC_key()
-        ferc_key = self.setup_FERC_key()
-        df923 = self.setup_eia923()
+        # self.acquire_FERC_key()
+        # ferc_key = self.setup_FERC_key()
+        # df923 = self.setup_eia923()
         df860 = self.setup_eia860()
-        self.setup_dfpp(df923, df860, ferc_key, export_all)
+        # self.setup_dfpp(df923, df860, ferc_key, export_all)
+        # self.prepare_E_constraints()
 
     def acquire_eia923(self):
         # download EIA 923 if relevant files are not in 'data' directory
@@ -141,20 +142,20 @@ class SetupDataE(object):
             shutil.rmtree(self.data_path + '/tmp/EIA923')
 
     def acquire_eia860(self):
-        if not os.path.exists(self.data_path + '/3_1_Generator_Y2015.xlsx'):
+        if not os.path.exists(self.data_path + '/3_1_Generator_Y2016.xlsx'):
 
             ## DEBUG THIS, CHECK THAT IT'S NOT A ZIP
             print('downloading EIA 860', str(datetime.datetime.now().time()))
-            urllib.request.urlretrieve('https://www.eia.gov/electricity/data/eia860/archive/xls/eia8602015.zip',
+            urllib.request.urlretrieve('https://www.eia.gov/electricity/data/eia860/archive/xls/eia8602016.zip',
                                        self.data_path + '/tmp/EIA860.zip')
             print('unzipping EIA 860', str(datetime.datetime.now().time()))
             unzip(self.data_path + '/tmp/EIA860.zip', self.data_path + '/tmp/EIA860')
             os.remove(self.data_path + '/tmp/EIA860.zip')
-            os.rename(self.data_path + '/tmp/EIA860/3_1_Generator_Y2015.xlsx',
-                      self.data_path + '/3_1_Generator_Y2015.xlsx')
-            if not os.path.exists(self.data_path + '/2___Plant_Y2015.xlsx'):
-                os.rename(self.data_path + '/tmp/EIA860/2___Plant_Y2015.xlsx',
-                          self.data_path + '/2___Plant_Y2015.xlsx')
+            os.rename(self.data_path + '/tmp/EIA860/3_1_Generator_Y2016.xlsx',
+                      self.data_path + '/3_1_Generator_Y2016.xlsx')
+            if not os.path.exists(self.data_path + '/2___Plant_Y2016.xlsx'):
+                os.rename(self.data_path + '/tmp/EIA860/2___Plant_Y2016.xlsx',
+                          self.data_path + '/2___Plant_Y2016.xlsx')
             # if not os.path.exists(self.data_path + '/3_2_Wind_Y2015.xlsx'):
             #     os.rename(self.data_path + '/tmp/EIA860/3_2_Wind_Y2015.xlsx',
             #               self.data_path + '/3_2_Wind_Y2015.xlsx')
@@ -189,8 +190,6 @@ class SetupDataE(object):
         NGCT (natural gas combustion turbine, NUC (nuclear), WND (wind), FF (other fossil fuel), or
         ALT (other alternative fuel). The assignment is stored in the column 'Plant Type'."""
 
-        # -------------Things to fix---------- #
-        #
         print('setting up EIA 923 dataframe ' + str(datetime.datetime.now().time()))
         # import dataframe from excel file
         df923 = pd.read_excel(self.data_path + '/EIA923_Schedules_2_3_4_5_M_12_2016_Final_Revision.xlsx',
@@ -257,7 +256,7 @@ class SetupDataE(object):
         # Should I delete temporary dataframes?
         print('setting up EIA 860 dataframe ' + str(datetime.datetime.now().time()))
         # import dataframe from excel file
-        df860gen = pd.read_excel(self.data_path + '/3_1_Generator_Y2015.xlsx',
+        df860gen = pd.read_excel(self.data_path + '/3_1_Generator_Y2016.xlsx',
                               sheet_name=0, header=1, usecols="A:E,H:I,P,Z:AA,AH")
         df860gen.replace(to_replace='.', value=0, inplace=True)
         df860gen.drop(df860gen.tail(1).index, inplace=True)
@@ -292,8 +291,8 @@ class SetupDataE(object):
         # group relevant plant info for 860 data frame
         df860info = df860gen.groupby(['Plant Id', 'Plant Type', 'Operator Id', 'Operator Name', 'Plant Name', 'State'
                                       ]).agg({'Technology': 'first',
-                                              'Operating Year': ['mean', 'min', 'max'],
-                                              'Operating Month': ['mean', 'min', 'max']})
+                                              'Operating Year': ['mean'],
+                                              'Operating Month': ['mean']})
 
         # group capacity for 860 data frame
         df860cap = df860gen.groupby(['Plant Id', 'Plant Type', 'Operator Id', 'Operator Name', 'Plant Name', 'State'
@@ -302,6 +301,8 @@ class SetupDataE(object):
         # merge 860 data and capacity
         df860group = pd.merge(df860cap, df860info, how='outer', on=['Plant Id', 'Plant Type', 'Operator Id',
                                                                     'Operator Name', 'Plant Name', 'State'])
+
+        df860group.to_csv(self.data_path + '/df860group.csv')
 
         # print(df860group.loc[:10, :])
         print('dataframe ready! ' + str(datetime.datetime.now().time()))
@@ -347,6 +348,31 @@ class SetupDataE(object):
             writer.save()
 
         return dfpp
+
+    def prepare_E_constraints(self):
+        # Indexing for months
+        jan = 0
+        feb = jan + 31 * 24
+        mar = feb + 28 * 24
+        apr = mar + 31 * 24
+        may = apr + 30 * 24
+        jun = may + 31 * 24
+        jul = jun + 30 * 24
+        aug = jul + 31 * 24
+        sep = aug + 31 * 24
+        octo = sep + 30 * 24
+        nov = octo + 31 * 24
+        dec = nov + 30 * 24
+
+        L = np.zeros((8760, 12))
+        months = [jan, feb, mar, apr, may, jun, jul, aug, sep, octo, nov, dec]
+        for i in range(len(months)):
+            if i == 11:
+                L[months[i]:, i] = np.ones((1, len(L) - months[i]))
+            else:
+                L[months[i]:months[i + 1], i] = np.ones((1, months[i + 1] - months[i]))
+        # np.savetxt('/Users/gglazer/PycharmProjects/CEP1/L.csv', L, delimiter=',')
+        save_pickle(L, self.data_path + '/pickles/L')
 
 
 class SetupDataL(object):

@@ -45,10 +45,8 @@ def divide(dividend, divisor, err=0.0):
         quotient = dividend / divisor
     except Warning:
         quotient = err
-
     if np.isnan(quotient):
         quotient = 0.0
-
     return quotient
 
 
@@ -163,6 +161,7 @@ class CEPCase(object):
         self.dfpp = pd.DataFrame()
         self.current_8760 = pd.DataFrame()
         self.demand_forecast = pd.DataFrame()
+        # do i use this?
         self.df_rps = pd.DataFrame()
         self.df_norm_renewable_cap = pd.DataFrame()
         self.re_8760 = pd.DataFrame()
@@ -173,8 +172,8 @@ class CEPCase(object):
         self.rps_year = 0.0
         # Methods
         self.load_data()
-        # self.calculate_net_load()
-        self.calculate_monthly_energy()
+        self.calculate_net_load()
+        # self.calculate_monthly_energy()
         # [dfpp, demand_forecast, gross_load_df, df_rps] = self.import_general_data()
         # [norm_wind_8760, norm_solar_8760] = self.import_regional_data(region)
         # [current_8760, current_wind_8760, current_solar_8760, current_wind_df, current_solar_df, dfpp_resp, re_frac_curr
@@ -211,6 +210,7 @@ class CEPCase(object):
         util_8760 = util_8760.dropna()
         max_year = max(util_8760.index.year)
         # Change the 'current year' to match the FERC data
+        ### SPECIFY FERC OR EIA YEAR (see Alex's code) ###
         self.curr_year = max_year
         current_8760 = util_8760.loc[util_8760.index.year == max_year]
         if int(max_year) % 4 == 0:
@@ -219,11 +219,12 @@ class CEPCase(object):
             current_8760 = current_8760.drop(current_8760.index[1416:1440])
         # Reset index for eventual merge with re_8760s
         current_8760.reset_index(inplace=True)
-        current_8760['Date'] = pd.to_datetime(current_8760['index'])
-        current_8760['Month'] = current_8760['Date'].dt.month.apply('{:0>2}'.format)
-        current_8760['Day'] = current_8760['Date'].dt.day.apply('{:0>2}'.format)
-        current_8760['Hour'] = current_8760['Date'].dt.hour.apply('{:0>2}'.format)
+        print(current_8760.head())
+        current_8760['Month'] = current_8760['index'].dt.month.apply('{:0>2}'.format)
+        current_8760['Day'] = current_8760['index'].dt.day.apply('{:0>2}'.format)
+        current_8760['Hour'] = current_8760['index'].dt.hour.apply('{:0>2}'.format)
         current_8760.set_index(['Month', 'Day', 'Hour'], inplace=True)
+        print(current_8760.head())
         current_8760.dropna(inplace=True)
         self.current_8760 = current_8760
 
@@ -235,6 +236,8 @@ class CEPCase(object):
             print('Key Error: Respondent not in FERC demand forecast data frame. Backup ID used.')
             self.cagr = max(0.0, self.demand_forecast.loc[self.util2, 'load_growth'])
 
+
+        # ------- SEE ALEX'S CODE FOR THESE ------ #
         # Load RPS data to save RPS fraction and year
         df_rps = load_pickle(self.data_path + '/pickles/rps_pickle')
         [rps_frac, rps_year] = get_rps(df_rps, self.state)
@@ -252,8 +255,10 @@ class CEPCase(object):
         re_8760.drop(columns=['Solar_Fixed', 'Solar_Tracking'], inplace=True)
         re_8760.dropna(inplace=True)
         self.re_8760 = re_8760
-        print('loaded')
-        return self
+
+        # Load and save end-use maxima 8760s
+
+        # return self
 
     print('Running case ', str(datetime.datetime.now().time()))
 
@@ -369,7 +374,7 @@ class CEPCase(object):
         if self.save_results:
             fut_net_load_8760.to_csv(self.data_path + '/results/future_net_load.csv')
 
-        return self
+        # return self
 
 
 
@@ -447,7 +452,7 @@ class CEPCase(object):
         print('Monthly Energies')
         print(monthly_energy)
 
-        return monthly_energy
+        # return monthly_energy
 
 #     def prepare_matrices(self):
 #         # this function builds the matrices

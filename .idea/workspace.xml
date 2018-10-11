@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="dd5c5965-424b-4df4-a2f9-570af42adbe4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CEPCase.py" beforeDir="false" afterPath="$PROJECT_DIR$/CEPCase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/command_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/command_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hourly_net_load_constraint.py" beforeDir="false" afterPath="$PROJECT_DIR$/hourly_net_load_constraint.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scratch2.py" beforeDir="false" afterPath="$PROJECT_DIR$/scratch2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
@@ -27,7 +27,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="LP_solver" value="3" />
+          <entry key="LP_solver" value="4" />
           <entry key="csv" value="4" />
           <entry key="py" value="48" />
         </counts>
@@ -35,23 +35,23 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="4" />
-          <entry key="Python" value="33" />
+          <entry key="Python" value="34" />
           <entry key="Scratch" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="941" />
-          <entry key="Python" value="46347" />
+          <entry key="PLAIN_TEXT" value="986" />
+          <entry key="Python" value="53458" />
           <entry key="Scratch" value="7389" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="LP_solver" value="4893" />
-          <entry key="dummy" value="86" />
-          <entry key="py" value="48843" />
-          <entry key="txt" value="855" />
+          <entry key="dummy" value="95" />
+          <entry key="py" value="55954" />
+          <entry key="txt" value="891" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -80,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/energy_constraint.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="122" column="29" selection-start-line="61" selection-start-column="4" selection-end-line="122" selection-end-column="29" />
+            <state relative-caret-position="316">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#192#315#0" />
@@ -91,16 +91,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hourly_net_load_constraint.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CEPCase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="418" column="70" selection-start-line="418" selection-start-column="70" selection-end-line="418" selection-end-column="70" />
+            <state relative-caret-position="965">
+              <caret line="225" column="70" lean-forward="true" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-                <marker date="1538690609519" expanded="true" signature="2335:2371" ph="..." />
-                <marker date="1538690609519" expanded="true" signature="6442:10244" ph="..." />
-                <marker date="1538690609519" expanded="true" signature="11852:11853" ph="..." />
+                <marker date="1539107338718" expanded="true" signature="2333:2369" ph="..." />
+                <marker date="1539107338718" expanded="true" signature="6465:10409" ph="..." />
+                <marker date="1539107338718" expanded="true" signature="12017:12018" ph="..." />
               </folding>
             </state>
           </provider>
@@ -109,8 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4834">
-              <caret line="433" selection-start-line="433" selection-end-line="433" />
+            <state relative-caret-position="-1186">
+              <caret line="144" column="68" selection-start-line="144" selection-start-column="68" selection-end-line="144" selection-end-column="68" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#191#314#0" />
@@ -124,17 +124,27 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scratch2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="960">
-              <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
+            <state relative-caret-position="277">
+              <caret line="144" column="17" selection-start-line="144" selection-start-column="17" selection-end-line="144" selection-end-column="17" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#463#597#0" />
                 <element signature="e#632#1358#0" />
-                <marker date="1538589091991" expanded="true" signature="856:861" ph="..." />
+                <marker date="1539291030830" expanded="true" signature="903:908" ph="..." />
+                <marker date="1539291030830" expanded="true" signature="2431:2524" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LP_solver">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="102" selection-start-line="102" selection-end-line="108" selection-end-column="73" />
             </state>
           </provider>
         </entry>
@@ -142,8 +152,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/command_file.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="37" column="38" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+            <state relative-caret-position="172">
+              <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -193,17 +203,17 @@
         <option value="$PROJECT_DIR$/peak_load_constraint.py" />
         <option value="$PROJECT_DIR$/CEPy_scratch.py" />
         <option value="$PROJECT_DIR$/energy_constraint.py" />
-        <option value="$PROJECT_DIR$/scratch2.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/command_file.py" />
         <option value="$PROJECT_DIR$/hourly_net_load_constraint.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/CEPCase.py" />
+        <option value="$PROJECT_DIR$/command_file.py" />
+        <option value="$PROJECT_DIR$/scratch2.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="7" />
     <option name="y" value="23" />
-    <option name="width" value="1100" />
+    <option name="width" value="1022" />
     <option name="height" value="782" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -376,7 +386,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.CEPy_scratch">
+  <component name="RunManager" selected="Python.scratch2">
     <configuration name="CEPy_scratch" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CEP1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -513,8 +523,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.CEPy_scratch" />
         <item itemvalue="Python.scratch2" />
+        <item itemvalue="Python.CEPy_scratch" />
         <item itemvalue="Python.scratch_data" />
         <item itemvalue="Python.scratch_calculator" />
         <item itemvalue="Python.dataframe_practice" />
@@ -609,7 +619,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538082859147</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Debugging object-oriented case class">
+      <created>1538690754567</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1538690754567</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -622,10 +639,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="7" y="23" width="1100" height="782" extended-state="0" />
+    <frame x="0" y="23" width="1022" height="782" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14365153" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15484515" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -677,7 +694,8 @@
     <MESSAGE value="Scratch2 contains code that will eventually go into hourly net load&#10;Scratch2 finds top 50 hours of forecast net generation (gross load - &#10;renewables)" />
     <MESSAGE value="Better decomposition of methods in Case classes" />
     <MESSAGE value="Moving setup classes to setup script&#10;Still need to redo case class(es)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moving setup classes to setup script&#10;Still need to redo case class(es)" />
+    <MESSAGE value="Debugging object-oriented case class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Debugging object-oriented case class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/LP_solver1.py" />
@@ -714,13 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LP_solver">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1447">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1801" />
@@ -742,10 +753,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/LP_solver">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="102" selection-start-line="102" selection-end-line="108" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/energy_constraint.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#192#315#0" />
+            <element signature="e#345#479#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4834">
-          <caret line="433" selection-start-line="433" selection-end-line="433" />
+        <state relative-caret-position="-1186">
+          <caret line="144" column="68" selection-start-line="144" selection-start-column="68" selection-end-line="144" selection-end-column="68" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <element signature="e#191#314#0" />
@@ -758,50 +788,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scratch2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#463#597#0" />
-            <element signature="e#632#1358#0" />
-            <marker date="1538589091991" expanded="true" signature="856:861" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/energy_constraint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="122" column="29" selection-start-line="61" selection-start-column="4" selection-end-line="122" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#192#315#0" />
-            <element signature="e#345#479#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/command_file.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="37" column="38" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+        <state relative-caret-position="172">
+          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hourly_net_load_constraint.py">
+    <entry file="file://$PROJECT_DIR$/CEPCase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="418" column="70" selection-start-line="418" selection-start-column="70" selection-end-line="418" selection-end-column="70" />
+        <state relative-caret-position="965">
+          <caret line="225" column="70" lean-forward="true" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <marker date="1538690609519" expanded="true" signature="2335:2371" ph="..." />
-            <marker date="1538690609519" expanded="true" signature="6442:10244" ph="..." />
-            <marker date="1538690609519" expanded="true" signature="11852:11853" ph="..." />
+            <marker date="1539107338718" expanded="true" signature="2333:2369" ph="..." />
+            <marker date="1539107338718" expanded="true" signature="6465:10409" ph="..." />
+            <marker date="1539107338718" expanded="true" signature="12017:12018" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scratch2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="144" column="17" selection-start-line="144" selection-start-column="17" selection-end-line="144" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#463#597#0" />
+            <element signature="e#632#1358#0" />
+            <marker date="1539291030830" expanded="true" signature="903:908" ph="..." />
+            <marker date="1539291030830" expanded="true" signature="2431:2524" ph="..." />
           </folding>
         </state>
       </provider>

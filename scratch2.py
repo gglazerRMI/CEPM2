@@ -92,6 +92,8 @@ future_net_8760 = load_pickle('/Users/gglazer/PycharmProjects/CEP1/data/future_n
 all_EU = load_pickle('/Users/gglazer/PycharmProjects/RMI/RMI_gridproj/data/all_EU')
 all_RE = load_pickle('/Users/gglazer/PycharmProjects/RMI/RMI_gridproj/data/all_RE')
 eu_matrix = all_EU[region].reset_index()
+eu_matrix.sort_index(inplace=True)
+eu_matrix.drop(columns='index', inplace=True)
 re_matrix = all_RE[region].reset_index()
 
 solar_list = ['Solar_Tracking', 'Solar_Fixed']
@@ -127,22 +129,47 @@ def calc_ramping(cols):
 
 
 [max_tracking, max_fixed] = calc_ramping(solar_list)
-print(max_tracking)
-print('\n \n \n\n \n \n\n \n \n\n \n \n')
-print(max_fixed)
 
+
+# change [max_fixed] to self.max_fixed
+def find_flex_value(matrix, source, pv_type='fixed'):
+    if pv_type == 'fixed':
+        value = matrix[source][max_fixed.index.values].values - \
+                matrix[source][max_fixed.index.values - max_fixed['Num Hours Solar_Fixed']].values
+    if pv_type == 'tracking':
+        value = matrix[source][max_tracking.index.values].values - \
+                matrix[source][max_tracking.index.values - max_tracking['Num Hours Solar_Tracking']].values
+    return value
+
+# A_flex values for PVs
 a_fixed = -max_fixed['Delta Solar_Fixed']
 a_track = -max_tracking['Delta Solar_Tracking']
-a_windon_f = re_matrix['Wind'][max_fixed.index.values].values - \
-             re_matrix['Wind'][max_fixed.index.values - max_fixed['Num Hours Solar_Fixed']].values
-a_windon_t = re_matrix['Wind'][max_tracking.index.values].values - \
-             re_matrix['Wind'][max_tracking.index.values - max_tracking['Num Hours Solar_Tracking']].values
-a_windoff_f = re_matrix['Wind_Offshore'][max_fixed.index.values].values - \
-             re_matrix['Wind_Offshore'][max_fixed.index.values - max_fixed['Num Hours Solar_Fixed']].values
-a_windoff_t = re_matrix['Wind_Offshore'][max_tracking.index.values].values - \
-             re_matrix['Wind_Offshore'][max_tracking.index.values - max_tracking['Num Hours Solar_Tracking']].values
-print(a_windoff_f)
-print(a_windoff_f)
+# A_flex values for wind sources
+a_wind_fix = find_flex_value(re_matrix, 'Wind', 'fixed')
+a_wind_tra = find_flex_value(re_matrix, 'Wind', 'tracking')
+a_windoff_fix = find_flex_value(re_matrix, 'Wind_Offshore', 'fixed')
+a_windoff_tra = find_flex_value(re_matrix, 'Wind_Offshore', 'tracking')
+# A_flex values for energy storage
+a_es4f = 2
+a_es4t = 2
+a_es6f = 2
+a_es6t = 2
+# A_flex values for energy efficiency
+a_ee_fix = eu_matrix.iloc[max_fixed.index.values, :].values - \
+                eu_matrix.iloc[max_fixed.index.values - max_fixed['Num Hours Solar_Fixed'], :].values
+a_ee_tra = eu_matrix.iloc[max_tracking.index.values, :].values - \
+                eu_matrix.iloc[max_tracking.index.values - max_tracking['Num Hours Solar_Tracking'], :].values
+# A_flex values for demand response
+a_dr_fix = eu_matrix.iloc[max_fixed.index.values, :].values
+a_dr_tra = eu_matrix.iloc[max_tracking.index.values, :].values
+
+subtr =eu_matrix.iloc[max_fixed.index.values - max_fixed['Num Hours Solar_Fixed'], :].values
+
+A_flex = [[a_fixed, 0, a_wind_fix, a_windoff_fix, a_es4f, a_es6f, a_ee_fix, a_dr_fix],
+          [0, a_track, a_wind_tra, a_windoff_tra, a_es4t, a_es6t, a_ee_tra, a_dr_tra]]
+A_flex = np.asarray(A_flex)
+print(A_flex)
+# np.savetxt('/Users/gglazer/PycharmProjects/RMI/RMI_gridproj/data/a_flex.csv', A_flex, delimiter=',')
 
 # solar_fixed = re_matrix['Solar_Fixed'].tolist()
 # print(solar_fixed[:15])

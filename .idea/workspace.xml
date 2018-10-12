@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd5c5965-424b-4df4-a2f9-570af42adbe4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CEPCase.py" beforeDir="false" afterPath="$PROJECT_DIR$/CEPCase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/command_file.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scratch2.py" beforeDir="false" afterPath="$PROJECT_DIR$/scratch2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,11 +15,12 @@
     <session id="-1928082799">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -41,8 +39,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="986" />
-          <entry key="Python" value="53458" />
+          <entry key="PLAIN_TEXT" value="1045" />
+          <entry key="Python" value="54852" />
           <entry key="Scratch" value="7389" />
         </counts>
       </usages-collector>
@@ -50,8 +48,8 @@
         <counts>
           <entry key="LP_solver" value="4893" />
           <entry key="dummy" value="95" />
-          <entry key="py" value="55954" />
-          <entry key="txt" value="891" />
+          <entry key="py" value="57348" />
+          <entry key="txt" value="950" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -80,7 +78,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/energy_constraint.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
+            <state relative-caret-position="540">
               <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
@@ -94,8 +92,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CEPCase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="965">
-              <caret line="225" column="70" lean-forward="true" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
+            <state relative-caret-position="503">
+              <caret line="225" column="70" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <marker date="1539107338718" expanded="true" signature="2333:2369" ph="..." />
@@ -109,16 +107,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1186">
+            <state relative-caret-position="2055">
               <caret line="144" column="68" selection-start-line="144" selection-start-column="68" selection-end-line="144" selection-end-column="68" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#191#314#0" />
-                <element signature="e#344#478#0" />
-                <element signature="e#518#675#0" />
-                <element signature="e#1284#1802#0" />
-                <element signature="e#1837#2772#0" />
-                <element signature="e#2806#3532#0" />
               </folding>
             </state>
           </provider>
@@ -127,14 +119,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scratch2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="144" column="17" selection-start-line="144" selection-start-column="17" selection-end-line="144" selection-end-column="17" />
+            <state relative-caret-position="303">
+              <caret line="171" column="56" selection-start-line="171" selection-start-column="56" selection-end-line="171" selection-end-column="56" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#463#597#0" />
-                <element signature="e#632#1358#0" />
-                <marker date="1539291030830" expanded="true" signature="903:908" ph="..." />
-                <marker date="1539291030830" expanded="true" signature="2431:2524" ph="..." />
+                <marker date="1539370824460" expanded="true" signature="903:908" ph="..." />
+                <marker date="1539370824460" expanded="true" signature="2431:2524" ph="..." />
+                <marker date="1539370824460" expanded="true" signature="4381:4823" ph="..." />
               </folding>
             </state>
           </provider>
@@ -143,7 +134,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LP_solver">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
+            <state relative-caret-position="1485">
               <caret line="102" selection-start-line="102" selection-end-line="108" selection-end-column="73" />
             </state>
           </provider>
@@ -152,8 +143,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/command_file.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+            <state relative-caret-position="570">
+              <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -222,7 +213,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -248,6 +238,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -260,119 +251,6 @@
       <recent name="$APPLICATION_CONFIG_DIR$/scratches" />
       <recent name="$USER_HOME$/Documents/GitHub/CEPM-2.0" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/CEP1.iml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/misc.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/energy_constraint.py</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -626,7 +504,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538690754567</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Key thing here is flexibility constraint code in scratch2">
+      <created>1539291095544</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1539291095544</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -695,7 +580,8 @@
     <MESSAGE value="Better decomposition of methods in Case classes" />
     <MESSAGE value="Moving setup classes to setup script&#10;Still need to redo case class(es)" />
     <MESSAGE value="Debugging object-oriented case class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Debugging object-oriented case class" />
+    <MESSAGE value="Key thing here is flexibility constraint code in scratch2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Key thing here is flexibility constraint code in scratch2" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/LP_solver1.py" />
@@ -725,10 +611,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <marker date="1536269346733" expanded="true" signature="344:349" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -747,22 +629,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LP_solver">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="102" selection-start-line="102" selection-end-line="108" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/energy_constraint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
+        <state relative-caret-position="540">
           <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
@@ -774,24 +646,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1186">
+        <state relative-caret-position="2055">
           <caret line="144" column="68" selection-start-line="144" selection-start-column="68" selection-end-line="144" selection-end-column="68" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#191#314#0" />
-            <element signature="e#344#478#0" />
-            <element signature="e#518#675#0" />
-            <element signature="e#1284#1802#0" />
-            <element signature="e#1837#2772#0" />
-            <element signature="e#2806#3532#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LP_solver">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1485">
+          <caret line="102" selection-start-line="102" selection-end-line="108" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/command_file.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+        <state relative-caret-position="570">
+          <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
@@ -800,8 +673,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CEPCase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="965">
-          <caret line="225" column="70" lean-forward="true" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
+        <state relative-caret-position="503">
+          <caret line="225" column="70" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <marker date="1539107338718" expanded="true" signature="2333:2369" ph="..." />
@@ -813,14 +686,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scratch2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="144" column="17" selection-start-line="144" selection-start-column="17" selection-end-line="144" selection-end-column="17" />
+        <state relative-caret-position="303">
+          <caret line="171" column="56" selection-start-line="171" selection-start-column="56" selection-end-line="171" selection-end-column="56" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#463#597#0" />
-            <element signature="e#632#1358#0" />
-            <marker date="1539291030830" expanded="true" signature="903:908" ph="..." />
-            <marker date="1539291030830" expanded="true" signature="2431:2524" ph="..." />
+            <marker date="1539370824460" expanded="true" signature="903:908" ph="..." />
+            <marker date="1539370824460" expanded="true" signature="2431:2524" ph="..." />
+            <marker date="1539370824460" expanded="true" signature="4381:4823" ph="..." />
           </folding>
         </state>
       </provider>

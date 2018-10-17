@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd5c5965-424b-4df4-a2f9-570af42adbe4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cagr_map_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cagr_map_snl.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scratch2.py" beforeDir="false" afterPath="$PROJECT_DIR$/scratch2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,32 +16,32 @@
     <session id="-1928082799">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.11" value="2" />
-          <entry key="project.open.time.12" value="1" />
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.11" value="3" />
+          <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="LP_solver" value="4" />
           <entry key="csv" value="4" />
-          <entry key="py" value="48" />
+          <entry key="py" value="50" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="4" />
-          <entry key="Python" value="34" />
+          <entry key="Python" value="36" />
           <entry key="Scratch" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="1045" />
-          <entry key="Python" value="54852" />
+          <entry key="PLAIN_TEXT" value="1147" />
+          <entry key="Python" value="60432" />
           <entry key="Scratch" value="7389" />
         </counts>
       </usages-collector>
@@ -48,8 +49,8 @@
         <counts>
           <entry key="LP_solver" value="4893" />
           <entry key="dummy" value="95" />
-          <entry key="py" value="57348" />
-          <entry key="txt" value="950" />
+          <entry key="py" value="62928" />
+          <entry key="txt" value="1052" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -78,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/energy_constraint.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="43" selection-start-line="43" selection-end-line="43" />
+            <state relative-caret-position="-3">
+              <caret line="101" column="49" selection-start-line="101" selection-start-column="49" selection-end-line="101" selection-end-column="49" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#192#315#0" />
@@ -92,7 +93,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CEPCase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
+            <state relative-caret-position="467">
               <caret line="225" column="70" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
@@ -107,25 +108,46 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2055">
-              <caret line="144" column="68" selection-start-line="144" selection-start-column="68" selection-end-line="144" selection-end-column="68" />
+            <state relative-caret-position="-1695">
+              <caret line="3" column="17" selection-start-line="3" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scratch2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2084">
+              <caret line="19" selection-start-line="19" selection-end-line="20" selection-end-column="46" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
+                <marker date="1539370824460" expanded="true" signature="903:908" ph="..." />
+                <marker date="1539370824460" expanded="true" signature="2431:2524" ph="..." />
+                <marker date="1539370824460" expanded="true" signature="4381:4823" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cagr_map_data.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="229">
+              <caret line="86" selection-start-line="86" selection-end-line="88" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/scratch2.py">
+        <entry file="file://$PROJECT_DIR$/cagr_map_snl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="171" column="56" selection-start-line="171" selection-start-column="56" selection-end-line="171" selection-end-column="56" />
+            <state relative-caret-position="1260">
+              <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
               <folding>
-                <element signature="e#0#14#0" expanded="true" />
-                <marker date="1539370824460" expanded="true" signature="903:908" ph="..." />
-                <marker date="1539370824460" expanded="true" signature="2431:2524" ph="..." />
-                <marker date="1539370824460" expanded="true" signature="4381:4823" ph="..." />
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -199,12 +221,15 @@
         <option value="$PROJECT_DIR$/CEPCase.py" />
         <option value="$PROJECT_DIR$/command_file.py" />
         <option value="$PROJECT_DIR$/scratch2.py" />
+        <option value="$PROJECT_DIR$/cagr_map_data.py" />
+        <option value="$PROJECT_DIR$/cagr_map_snl.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1022" />
+    <option name="x" value="79" />
+    <option name="y" value="30" />
+    <option name="width" value="1157" />
     <option name="height" value="782" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -213,6 +238,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,7 +264,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -264,7 +289,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.scratch2">
+  <component name="RunManager" selected="Python.cagr_map_snl">
     <configuration name="CEPy_scratch" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CEP1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -286,7 +311,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dataframe_practice" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="cagr_map_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CEP1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -298,7 +323,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataframe_practice.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cagr_map_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cagr_map_snl" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CEP1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cagr_map_snl.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -349,27 +395,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="scratch_calculator" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CEP1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_calculator.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="scratch_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CEP1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -395,17 +420,17 @@
       <item itemvalue="Python.scratch" />
       <item itemvalue="Python.scratch_data" />
       <item itemvalue="Python.CEPy_scratch" />
-      <item itemvalue="Python.dataframe_practice" />
-      <item itemvalue="Python.scratch_calculator" />
       <item itemvalue="Python.scratch2" />
+      <item itemvalue="Python.cagr_map_data" />
+      <item itemvalue="Python.cagr_map_snl" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.cagr_map_snl" />
+        <item itemvalue="Python.cagr_map_data" />
         <item itemvalue="Python.scratch2" />
         <item itemvalue="Python.CEPy_scratch" />
         <item itemvalue="Python.scratch_data" />
-        <item itemvalue="Python.scratch_calculator" />
-        <item itemvalue="Python.dataframe_practice" />
       </list>
     </recent_temporary>
   </component>
@@ -511,7 +536,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539291095544</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Most of the code in scratch2 is correct, but having trouble saving everything as numpy array.">
+      <created>1539370879199</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1539370879199</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -524,10 +556,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1022" height="782" extended-state="0" />
+    <frame x="79" y="30" width="1157" height="782" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15484515" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28169015" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -581,7 +613,8 @@
     <MESSAGE value="Moving setup classes to setup script&#10;Still need to redo case class(es)" />
     <MESSAGE value="Debugging object-oriented case class" />
     <MESSAGE value="Key thing here is flexibility constraint code in scratch2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Key thing here is flexibility constraint code in scratch2" />
+    <MESSAGE value="Most of the code in scratch2 is correct, but having trouble saving everything as numpy array." />
+    <option name="LAST_COMMIT_MESSAGE" value="Most of the code in scratch2 is correct, but having trouble saving everything as numpy array." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/LP_solver1.py" />
@@ -632,28 +665,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/energy_constraint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#192#315#0" />
-            <element signature="e#345#479#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2055">
-          <caret line="144" column="68" selection-start-line="144" selection-start-column="68" selection-end-line="144" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LP_solver">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1485">
@@ -673,7 +684,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CEPCase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
+        <state relative-caret-position="467">
           <caret line="225" column="70" selection-start-line="222" selection-start-column="8" selection-end-line="225" selection-end-column="70" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
@@ -684,15 +695,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1695">
+          <caret line="3" column="17" selection-start-line="3" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/energy_constraint.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="101" column="49" selection-start-line="101" selection-start-column="49" selection-end-line="101" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#192#315#0" />
+            <element signature="e#345#479#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scratch2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="171" column="56" selection-start-line="171" selection-start-column="56" selection-end-line="171" selection-end-column="56" />
+        <state relative-caret-position="-2084">
+          <caret line="19" selection-start-line="19" selection-end-line="20" selection-end-column="46" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <marker date="1539370824460" expanded="true" signature="903:908" ph="..." />
             <marker date="1539370824460" expanded="true" signature="2431:2524" ph="..." />
             <marker date="1539370824460" expanded="true" signature="4381:4823" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cagr_map_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="86" selection-start-line="86" selection-end-line="88" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cagr_map_snl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -142,8 +142,8 @@ def find_flex_value(matrix, source, pv_type='fixed'):
     return value
 
 # A_flex values for PVs
-a_fixed = -max_fixed['Delta Solar_Fixed']
-a_track = -max_tracking['Delta Solar_Tracking']
+a_fixed = -max_fixed['Delta Solar_Fixed'].values
+a_track = -max_tracking['Delta Solar_Tracking'].values
 # A_flex values for wind sources
 a_wind_fix = find_flex_value(re_matrix, 'Wind', 'fixed')
 a_wind_tra = find_flex_value(re_matrix, 'Wind', 'tracking')
@@ -163,12 +163,14 @@ a_ee_tra = eu_matrix.iloc[max_tracking.index.values, :].values - \
 a_dr_fix = eu_matrix.iloc[max_fixed.index.values, :].values
 a_dr_tra = eu_matrix.iloc[max_tracking.index.values, :].values
 
-subtr =eu_matrix.iloc[max_fixed.index.values - max_fixed['Num Hours Solar_Fixed'], :].values
+# subtr = eu_matrix.iloc[max_fixed.index.values - max_fixed['Num Hours Solar_Fixed'], :].values
+
 
 A_flex = [[a_fixed, 0, a_wind_fix, a_windoff_fix, a_es4f, a_es6f, a_ee_fix, a_dr_fix],
           [0, a_track, a_wind_tra, a_windoff_tra, a_es4t, a_es6t, a_ee_tra, a_dr_tra]]
 A_flex = np.asarray(A_flex)
 print(A_flex)
+# print(A_flex)
 # np.savetxt('/Users/gglazer/PycharmProjects/RMI/RMI_gridproj/data/a_flex.csv', A_flex, delimiter=',')
 
 # solar_fixed = re_matrix['Solar_Fixed'].tolist()

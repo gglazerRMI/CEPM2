@@ -47,8 +47,12 @@ df_eands.dropna(subset=['2016 Sales Fraction', '2010 Sales Fraction'], inplace=T
 # df_dx.to_csv(data_path + '/df_snl.csv')
 
 df_dxfrac = pd.merge(df_eands, df_dx, how='left', left_on='Institution Key', right_on='SNL Institution Key')
-# df_dxfrac.to_csv(data_path + '/df_dxfrac.csv')
-# print(df_dxfrac.head())
+df_dxfrac.to_csv(data_path + '/df_dxfrac.csv')
+print(df_dxfrac.shape)
+df_dxfrac.dropna(subset=['2017 Total Distribution Plant: EOY\n($000)'], inplace=True)
+print(df_dxfrac.shape)
+# df_dxfrac.to_csv(data_path + '/df_dxfrac1.csv')
+
 df_dxfrac['2017 Dx Assets'] = df_dxfrac['2016 Sales Fraction'] * df_dxfrac['2017 Total Distribution Plant: EOY\n($000)']
 df_dxfrac['2016 Dx Assets'] = df_dxfrac['2016 Sales Fraction'] * df_dxfrac['2016 Total Distribution Plant: EOY\n($000)']
 df_dxfrac['2010 Dx Assets'] = df_dxfrac['2010 Sales Fraction'] * df_dxfrac['2010 Total Distribution Plant: EOY\n($000)']
@@ -80,5 +84,5 @@ df_eia = pd.merge(df_eia10, df_eia16, on='State')
 df_eia = pd.merge(df_eia, df_eia17, on='State')
 
 df_states = pd.merge(df_states, df_eia, how='inner', left_on='State of Operation', right_on='State')
-print(df_states)
-df_states.to_csv(csvs_path + '/df_states.csv')
+print(df_states.head(10))
+df_states.to_csv(csvs_path + '/df_states_updated.csv')

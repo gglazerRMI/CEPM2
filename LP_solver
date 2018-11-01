@@ -1,5 +1,5 @@
 import numpy as np
-import cvxpy as cvx
+import cvxpy as cp
 from scipy import optimize
 import scipy as sp
 
@@ -20,7 +20,7 @@ def norm_max(M):
 
 """Inputs: Constants, Constraints, and Requirements"""
 
-# Index key for x
+## Index key for x
 idx_re_pv = 0
 idx_re_pvt = 1
 idx_re_w = 2
@@ -64,58 +64,12 @@ Sep = Aug + 31*24
 Oct = Sep + 30*24
 Nov = Oct + 31*24
 Dec = Nov + 30*24
-
-# Data
-
-
-# Bounds
-
-
-
-"""Build Arrays for Ax≤b"""
-# Upper bounds: maximum amount of clean energy resource
-x1_bnds = np.ones((29, 1)) ## this needs to be changed to reflect the max capacity for 29 decision variables, as b_max
-
-# First constraint: limit total energy efficiency (EE) at sector level (A_ee, b_ee)
-EU = np.ones((8760, 12)) ## Hourly capacity factors for end uses, import from Reinventing Fire
-EU = norm_max(EU)   # normalize all elements of EU to the maximum value of EU
-eue = np.transpose(EU).dot(np.ones((8760, 1)))   # column sums of EU' that give annual E/MW saved for 12 end uses
-
-# Build A_ee
-A_ee = np.zeros((3, 29))
-A_ee[0, idx_ee_ind] = eue[0].T
-A_ee[1, idx_ee_res1:idx_ee_res5+1] = eue[1:6].T
-A_ee[2, idx_ee_com1:idx_ee_com6+1] = eue[6:].T
-
-# Build b_ee
-b_ee = np.ones((3, 1))
-
-# Second Constraint: Limit total demand response (DR) at sector level (A_dr, b_dr)
-A_dr = np.zeros((2, 29))
-A_dr[0, idx_dr_ind:idx_dr_ind+1] = np.ones((1, idx_dr_ind-idx_dr_ind+1))
-A_dr[0, idx_dr_com1:idx_dr_com6+1] = np.ones((1, idx_dr_com6-idx_dr_com1+1))
-A_dr[1, idx_dr_res1:idx_dr_res5+1] = np.ones((1, idx_dr_res5-idx_dr_res1+1))
-
-# Build b_dr
-b_dr = np.ones((2, 1))
-
-# Third Constraint: Monthly energy requirement for CEP
-L = np.zeros((8760, 12))
-months = [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
-for i in range(len(months)):
-    if i == 11:
-        L[months[i]:, i] = np.ones((1, len(L)-months[i]))
-    else:
-        L[months[i]:months[i+1], i] = np.ones((1, months[i+1]-months[i]))
-
-
-
-
+##
 
 """Minimize z = c'x, subject to Ax≤b"""
-
+r=1
 ## need to rewrite this so that A, b are appended from other A's and b's
-x = cvx.Variable(29)  # vector of 29 decision variables
+x = cp.Variable(29)  # vector of 29 decision variables
 c = np.ones((29,1))   # vector of 29 objective coefficients giving cost/MW
 A = np.ones((r,29))   # array [rx29], where r=len(b), giving coefficients for system requirements
 b = np.ones((r,1))    # vector of r coefficients for clean energy constraints
@@ -124,7 +78,7 @@ x1_bnds = (-3,None)
 
 # Output of this function is x, where each element represents the MW for each resource that should
 # be built for a given year
-objective = cvx.Minimize(c.dot(x))
+objective = cp.Minimize(c.dot(x))
 
 
 
